@@ -1,4 +1,4 @@
-package com.dscreate_app.organizerapp
+package com.dscreate_app.organizerapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
