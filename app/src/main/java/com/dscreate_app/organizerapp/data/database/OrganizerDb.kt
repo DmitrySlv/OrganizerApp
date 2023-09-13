@@ -34,4 +34,6 @@ abstract class OrganizerDb: RoomDatabase() {
             }
         }
     }
+
+    abstract fun getDao(): Dao
 }
