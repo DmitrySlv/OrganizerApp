@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">OrganizerApp</string>
+    <!-- bottom_nav_menu -->
+    <string name="settings">Настройки</string>
+    <string name="notes">Заметки</string>
+    <string name="shopping_list">Список покупок</string>
+    <string name="new_item">Создать</string>
 </resources>

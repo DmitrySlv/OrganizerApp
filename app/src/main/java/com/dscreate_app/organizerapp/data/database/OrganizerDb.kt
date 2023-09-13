@@ -11,7 +11,7 @@ import com.dscreate_app.organizerapp.data.ShoppingListNamesEntity
 
 @Database(entities = [LibraryItemEntity::class, NoteItemEntity::class,
     ShoppingListItemEntity::class, ShoppingListNamesEntity::class],
-    version = 1, exportSchema = true)
+    version = 1)
 abstract class OrganizerDb: RoomDatabase() {
 
     companion object {
