@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.databinding.ActivityMainBinding
+import com.dscreate_app.organizerapp.fragments.NotesFragment
+import com.dscreate_app.organizerapp.utils.FragmentManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "Настройки")
                 }
                 R.id.notes -> {
-                    Log.d(TAG, "Заметки")
+                    FragmentManager.setFragment(NotesFragment.newInstance(), this)
                 }
                 R.id.shopping_list -> {
                     Log.d(TAG, "Список покупок")
