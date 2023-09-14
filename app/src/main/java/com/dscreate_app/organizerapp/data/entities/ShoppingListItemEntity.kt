@@ -1,4 +1,4 @@
-package com.dscreate_app.organizerapp.data
+package com.dscreate_app.organizerapp.data.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

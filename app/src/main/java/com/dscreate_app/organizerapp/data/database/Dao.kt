@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.dscreate_app.organizerapp.data.NoteItemEntity
+import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

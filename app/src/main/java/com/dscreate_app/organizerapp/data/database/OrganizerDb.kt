@@ -4,10 +4,10 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dscreate_app.organizerapp.data.LibraryItemEntity
-import com.dscreate_app.organizerapp.data.NoteItemEntity
-import com.dscreate_app.organizerapp.data.ShoppingListItemEntity
-import com.dscreate_app.organizerapp.data.ShoppingListNamesEntity
+import com.dscreate_app.organizerapp.data.entities.LibraryItemEntity
+import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
+import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
+import com.dscreate_app.organizerapp.data.entities.ShoppingListNamesEntity
 
 @Database(entities = [LibraryItemEntity::class, NoteItemEntity::class,
     ShoppingListItemEntity::class, ShoppingListNamesEntity::class],
