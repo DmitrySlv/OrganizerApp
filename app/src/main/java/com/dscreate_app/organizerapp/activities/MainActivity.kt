@@ -20,18 +20,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun setBottomNavListener() {
         binding.bNavView.setOnItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.settings -> {
                     Log.d(TAG, "Настройки")
                 }
+
                 R.id.notes -> {
                     FragmentManager.setFragment(NotesFragment.newInstance(), this)
                 }
+
                 R.id.shopping_list -> {
                     Log.d(TAG, "Список покупок")
                 }
+
                 R.id.new_item -> {
-                    Log.d(TAG, "Создать")
+                    FragmentManager.currentFrag?.onClickNew()
                 }
             }
             true

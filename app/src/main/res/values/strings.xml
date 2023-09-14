@@ -6,4 +6,9 @@
     <string name="notes">Заметки</string>
     <string name="shopping_list">Список покупок</string>
     <string name="new_item">Создать</string>
+    <!-- activity_note -->
+    <string name="title_hint">Заголовок</string>
+    <string name="desc_hint">Описание</string>
+    <!-- new_note_menu -->
+    <string name="save">Сохранить</string>
 </resources>

@@ -1,11 +1,13 @@
 package com.dscreate_app.organizerapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.dscreate_app.organizerapp.activities.MainApp
+import com.dscreate_app.organizerapp.activities.NoteActivity
 import com.dscreate_app.organizerapp.databinding.FragmentNotesBinding
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
@@ -36,12 +38,8 @@ class NotesFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     override fun onClickNew() {
+        startActivity(Intent(activity, NoteActivity::class.java))
     }
 
     companion object {
