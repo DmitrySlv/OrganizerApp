@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">OrganizerApp</string>
     <string name="item">Item</string>
+    <!-- content_descriptions -->
+    <string name="button_delete">Кнопка удалить заметку</string>
     <!-- bottom_nav_menu -->
     <string name="settings">Настройки</string>
     <string name="notes">Заметки</string>

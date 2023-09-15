@@ -21,7 +21,7 @@ import com.dscreate_app.organizerapp.databinding.FragmentNotesBinding
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
-class NotesFragment : BaseFragment() {
+class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener {
 
     private var _binding: FragmentNotesBinding? = null
     private val binding: FragmentNotesBinding
@@ -49,7 +49,7 @@ class NotesFragment : BaseFragment() {
     }
 
     private fun init() = with(binding) {
-        adapter = NotesAdapter()
+        adapter = NotesAdapter(this@NotesFragment)
         rcView.layoutManager = LinearLayoutManager(requireContext())
         rcView.adapter = adapter
     }
@@ -75,6 +75,10 @@ class NotesFragment : BaseFragment() {
     private inline fun <reified T : Parcelable> Intent.parcelable(key: String): T? = when {
         SDK_INT >= 33 -> getParcelableExtra(key, T::class.java)
         else -> @Suppress("DEPRECATION") getParcelableExtra(key) as? T
+    }
+
+    override fun deleteItem(id: Int) {
+        mainViewModel.deleteNote(id)
     }
 
     companion object {
