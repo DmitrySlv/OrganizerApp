@@ -6,6 +6,7 @@ import android.util.Log
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.databinding.ActivityMainBinding
 import com.dscreate_app.organizerapp.fragments.NotesFragment
+import com.dscreate_app.organizerapp.fragments.NotesFragment.Companion.TAG
 import com.dscreate_app.organizerapp.utils.FragmentManager
 
 class MainActivity : AppCompatActivity() {
@@ -39,9 +40,5 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-    }
-
-    companion object {
-        private const val TAG = "MyLog"
     }
 }
