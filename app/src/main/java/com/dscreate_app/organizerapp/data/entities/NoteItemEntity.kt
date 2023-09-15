@@ -1,9 +1,12 @@
 package com.dscreate_app.organizerapp.data.entities
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 @Entity(tableName = "note_item")
 data class NoteItemEntity(
     @PrimaryKey(autoGenerate = true)
@@ -20,4 +23,4 @@ data class NoteItemEntity(
 
     @ColumnInfo(name = "category")
     val category: String
-)
+): Parcelable

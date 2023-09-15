@@ -2,7 +2,9 @@ package com.dscreate_app.organizerapp.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +12,11 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.organizerapp.activities.MainApp
 import com.dscreate_app.organizerapp.activities.NoteActivity
+import com.dscreate_app.organizerapp.adapters.NotesAdapter
+import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.FragmentNotesBinding
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
@@ -26,6 +31,7 @@ class NotesFragment : BaseFragment() {
         MainViewModelFactory((context?.applicationContext as MainApp).database)
     }
     private lateinit var editLauncher: ActivityResultLauncher<Intent>
+    private lateinit var adapter: NotesAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +43,21 @@ class NotesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
         onEditResult()
+        observer()
+    }
+
+    private fun init() = with(binding) {
+        adapter = NotesAdapter()
+        rcView.layoutManager = LinearLayoutManager(requireContext())
+        rcView.adapter = adapter
+    }
+
+    private fun observer() {
+        mainViewModel.allNotes.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 
     override fun onClickNew() {
@@ -47,16 +67,19 @@ class NotesFragment : BaseFragment() {
     private fun onEditResult() {
         editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                Log.d(TAG, "title: ${it.data?.getStringExtra(TITLE_KEY)}")
-                Log.d(TAG, "description: ${it.data?.getStringExtra(DESCRIP_KEY)}")
+                mainViewModel.insertNote(it.data?.parcelable<NoteItemEntity>(NEW_NOTE_KEY) as NoteItemEntity)
             }
         }
     }
 
+    private inline fun <reified T : Parcelable> Intent.parcelable(key: String): T? = when {
+        SDK_INT >= 33 -> getParcelableExtra(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelableExtra(key) as? T
+    }
+
     companion object {
         const val TAG = "MyLog"
-        const val TITLE_KEY = "title_key"
-        const val DESCRIP_KEY = "description_key"
+        const val NEW_NOTE_KEY = "new_note_key"
 
         @JvmStatic
         fun newInstance() = NotesFragment()

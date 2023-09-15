@@ -7,9 +7,13 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import com.dscreate_app.organizerapp.R
+import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.ActivityNoteBinding
 import com.dscreate_app.organizerapp.fragments.NotesFragment
 import com.dscreate_app.organizerapp.utils.showToast
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 class NoteActivity : AppCompatActivity() {
 
@@ -45,10 +49,24 @@ class NoteActivity : AppCompatActivity() {
 
     private fun setMainResult() {
         val intent = Intent().apply {
-            putExtra(NotesFragment.TITLE_KEY, binding.edTitle.text.toString())
-            putExtra(NotesFragment.DESCRIP_KEY, binding.edDescription.text.toString())
+            putExtra(NotesFragment.NEW_NOTE_KEY, createNewNote())
         }
         setResult(Activity.RESULT_OK, intent)
         finish()
+    }
+
+    private fun getCurrentTime(): String {
+        val formatter = SimpleDateFormat("hh:mm:ss - dd/MM/yyyy", Locale.getDefault())
+        return formatter.format(Calendar.getInstance().time)
+    }
+
+    private fun createNewNote(): NoteItemEntity = with(binding) {
+        return NoteItemEntity(
+            null,
+            edTitle.text.toString(),
+            edDescription.text.toString(),
+            getCurrentTime(),
+            ""
+        )
     }
 }
