@@ -2,9 +2,12 @@ package com.dscreate_app.organizerapp.activities
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.Spannable
+import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -46,6 +49,9 @@ class NoteActivity : AppCompatActivity() {
             android.R.id.home -> {
                 finish()
             }
+            R.id.bold -> {
+                setBoldText()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -53,6 +59,21 @@ class NoteActivity : AppCompatActivity() {
     private fun actionBarSettings() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun setBoldText() = with(binding) {
+        val startPos = edDescription.selectionStart
+        val endPos = edDescription.selectionEnd
+        val styles= edDescription.text.getSpans(startPos, endPos, StyleSpan::class.java)
+        var boldStyle: StyleSpan? = null
+        if (styles.isNotEmpty()) {
+            edDescription.text.removeSpan(styles[0])
+        } else {
+            boldStyle = StyleSpan(Typeface.BOLD)
+        }
+        edDescription.text.setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        edDescription.text.trim()
+        edDescription.setSelection(startPos)
     }
 
     private fun getNote() {
