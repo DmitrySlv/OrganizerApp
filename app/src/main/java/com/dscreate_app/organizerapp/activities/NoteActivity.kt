@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.ActivityNoteBinding
+import com.dscreate_app.organizerapp.utils.HtmlManager
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.DATE_FORMAT
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.EDIT_STATE_KEY
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.EMPTY
@@ -86,7 +87,7 @@ class NoteActivity : AppCompatActivity() {
 
     private fun fillNote() = with(binding) {
             edTitle.setText(note?.title)
-            edDescription.setText(note?.content)
+            edDescription.setText(note?.content?.let { HtmlManager.getFromHtml(it).trim() })
     }
 
     private inline fun <reified T : Parcelable> Intent.parcelable(key: String): T? = when {
@@ -113,7 +114,7 @@ class NoteActivity : AppCompatActivity() {
     private fun updateNote(): NoteItemEntity? = with(binding) {
       return note?.copy(
             title = edTitle.text.toString(),
-            content = edDescription.text.toString()
+            content = HtmlManager.toHtml(edDescription.text)
         )
     }
 
@@ -126,7 +127,7 @@ class NoteActivity : AppCompatActivity() {
         return NoteItemEntity(
             null,
             edTitle.text.toString(),
-            edDescription.text.toString(),
+           HtmlManager.toHtml(edDescription.text),
             getCurrentTime(),
             EMPTY
         )

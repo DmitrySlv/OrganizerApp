@@ -6,15 +6,23 @@
         android:title="@string/save"
         android:id="@+id/save"
         android:icon="@drawable/baseline_save"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         app:showAsAction="ifRoom"
         />
 
     <item
         android:title="@string/bold"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         android:id="@+id/bold"
         android:icon="@drawable/baseline_format_bold_24"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:title="Color"
+        android:orderInCategory="1"
+        android:id="@+id/color"
+        android:icon="@drawable/baseline_color"
         app:showAsAction="ifRoom"
         />
 

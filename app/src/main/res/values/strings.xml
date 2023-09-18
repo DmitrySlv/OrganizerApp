@@ -3,6 +3,12 @@
     <string name="item">Item</string>
     <!-- content_descriptions -->
     <string name="button_delete">Кнопка удалить заметку</string>
+    <string name="button_red">Красный цвет</string>
+    <string name="button_yellow">Желтый цвет</string>
+    <string name="button_blue">Голубой цвет</string>
+    <string name="button_black">Черный цвет</string>
+    <string name="button_orange">Оранжевый цвет</string>
+    <string name="button_green">Зеленый цвет</string>
     <!-- bottom_nav_menu -->
     <string name="settings">Настройки</string>
     <string name="notes">Заметки</string>

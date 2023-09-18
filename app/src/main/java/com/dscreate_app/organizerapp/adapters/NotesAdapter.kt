@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.NotesItemBinding
+import com.dscreate_app.organizerapp.utils.HtmlManager
 
 class NotesAdapter(
     private val deleteListener: DeleteListener,
@@ -33,7 +34,7 @@ class NotesAdapter(
 
         fun setData(note: NoteItemEntity) = with(binding) {
             tvTitle.text = note.title
-            tvDescription.text = note.content
+            tvDescription.text = HtmlManager.getFromHtml(note.content).trim()
             tvTime.text = note.time
             onClicksItem(note)
         }
