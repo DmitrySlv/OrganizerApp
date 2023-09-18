@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,10 +17,13 @@ import com.dscreate_app.organizerapp.activities.NoteActivity
 import com.dscreate_app.organizerapp.adapters.NotesAdapter
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.FragmentNotesBinding
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.EDIT_STATE_KEY
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.NEW_NOTE_KEY
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.UPDATE
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
-class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener {
+class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.OnClickListener {
 
     private var _binding: FragmentNotesBinding? = null
     private val binding: FragmentNotesBinding
@@ -49,7 +51,7 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener {
     }
 
     private fun init() = with(binding) {
-        adapter = NotesAdapter(this@NotesFragment)
+        adapter = NotesAdapter(this@NotesFragment, this@NotesFragment)
         rcView.layoutManager = LinearLayoutManager(requireContext())
         rcView.adapter = adapter
     }
@@ -67,7 +69,15 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener {
     private fun onEditResult() {
         editLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
-                mainViewModel.insertNote(it.data?.parcelable<NoteItemEntity>(NEW_NOTE_KEY) as NoteItemEntity)
+                val editState = it.data?.getStringExtra(EDIT_STATE_KEY)
+                if (editState == UPDATE) {
+                    it.data?.parcelable<NoteItemEntity>(NEW_NOTE_KEY)
+                        ?.let { note -> mainViewModel.updateNote(note) }
+                } else {
+                    it.data?.parcelable<NoteItemEntity>(NEW_NOTE_KEY)
+                        ?.let { note -> mainViewModel.insertNote(note) }
+                }
+
             }
         }
     }
@@ -81,10 +91,14 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener {
         mainViewModel.deleteNote(id)
     }
 
-    companion object {
-        const val TAG = "MyLog"
-        const val NEW_NOTE_KEY = "new_note_key"
+    override fun onClickItem(note: NoteItemEntity) {
+        val intent = Intent(activity, NoteActivity::class.java).apply {
+            putExtra(NEW_NOTE_KEY, note)
+        }
+        editLauncher.launch(intent)
+    }
 
+    companion object {
         @JvmStatic
         fun newInstance() = NotesFragment()
     }

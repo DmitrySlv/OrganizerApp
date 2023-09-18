@@ -10,33 +10,49 @@ import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.NotesItemBinding
 
 class NotesAdapter(
-    private val deleteListener: DeleteListener
+    private val deleteListener: DeleteListener,
+    private val onClickItemListener: OnClickListener
 ): ListAdapter<NoteItemEntity, NotesAdapter.Holder>(DiffNotesAdapter) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.notes_item, parent, false)
-        return Holder(view, deleteListener)
+        return Holder(view, deleteListener, onClickItemListener)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.setData(getItem(position))
     }
 
-    class Holder(itemView: View, private val deleteListener: DeleteListener): ViewHolder(itemView) {
+    class Holder(
+        itemView: View,
+        private val deleteListener: DeleteListener,
+        private val onClickItemListener: OnClickListener
+    ): ViewHolder(itemView) {
         private val binding = NotesItemBinding.bind(itemView)
 
         fun setData(note: NoteItemEntity) = with(binding) {
             tvTitle.text = note.title
             tvDescription.text = note.content
             tvTime.text = note.time
+            onClicksItem(note)
+        }
+
+        private fun onClicksItem(note: NoteItemEntity) = with(binding) {
             ibDelete.setOnClickListener {
                 note.id?.let { note -> deleteListener.deleteItem(note) }
+            }
+            itemView.setOnClickListener {
+                onClickItemListener.onClickItem(note)
             }
         }
     }
 
     interface DeleteListener {
         fun deleteItem(id: Int)
+    }
+
+    interface OnClickListener {
+        fun onClickItem(note: NoteItemEntity)
     }
 }

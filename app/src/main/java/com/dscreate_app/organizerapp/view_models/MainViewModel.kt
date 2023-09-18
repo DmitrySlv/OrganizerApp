@@ -16,6 +16,10 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
         dao.insertNote(note)
     }
 
+    fun updateNote(note: NoteItemEntity) = viewModelScope.launch {
+        dao.updateNote(note)
+    }
+
     fun deleteNote(id: Int) = viewModelScope.launch {
         dao.deleteNote(id)
     }

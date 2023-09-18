@@ -1,13 +1,13 @@
 package com.dscreate_app.organizerapp.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.databinding.ActivityMainBinding
 import com.dscreate_app.organizerapp.fragments.NotesFragment
-import com.dscreate_app.organizerapp.fragments.NotesFragment.Companion.TAG
 import com.dscreate_app.organizerapp.utils.FragmentManager
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.TAG
 
 class MainActivity : AppCompatActivity() {
 
