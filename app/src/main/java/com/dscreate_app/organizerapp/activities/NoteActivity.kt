@@ -10,6 +10,9 @@ import android.text.Spannable
 import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
@@ -52,6 +55,13 @@ class NoteActivity : AppCompatActivity() {
             }
             R.id.bold -> {
                 setBoldText()
+            }
+            R.id.color -> {
+                if (!binding.colorPicker.isShown) {
+                    openColorPicker()
+                } else {
+                    closeColorPicker()
+                }
             }
         }
         return super.onOptionsItemSelected(item)
@@ -131,5 +141,27 @@ class NoteActivity : AppCompatActivity() {
             getCurrentTime(),
             EMPTY
         )
+    }
+
+    private fun openColorPicker() = with(binding) {
+        colorPicker.visibility = View.VISIBLE
+        val openAnim = AnimationUtils.loadAnimation(this@NoteActivity, R.anim.open_color_picker)
+        binding.colorPicker.startAnimation(openAnim)
+    }
+
+    private fun closeColorPicker() = with(binding) {
+        val closeAnim = AnimationUtils.loadAnimation(this@NoteActivity, R.anim.close_color_picker)
+        closeAnim.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                colorPicker.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+            }
+        })
+        binding.colorPicker.startAnimation(closeAnim)
     }
 }
