@@ -1,5 +1,6 @@
 package com.dscreate_app.organizerapp.activities
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Typeface
@@ -24,6 +25,7 @@ import com.dscreate_app.organizerapp.utils.OrganizerConsts.EMPTY
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.NEW
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.NEW_NOTE_KEY
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.UPDATE
+import com.dscreate_app.organizerapp.utils.TouchListenerColor
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -38,6 +40,7 @@ class NoteActivity : AppCompatActivity() {
         setContentView(binding.root)
         actionBarSettings()
         getNote()
+        init()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -70,6 +73,11 @@ class NoteActivity : AppCompatActivity() {
     private fun actionBarSettings() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun init() = with(binding) {
+        colorPicker.setOnTouchListener(TouchListenerColor)
     }
 
     private fun setBoldText() = with(binding) {
