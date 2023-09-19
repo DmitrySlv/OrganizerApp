@@ -9,6 +9,8 @@
     <string name="button_black">Черный цвет</string>
     <string name="button_orange">Оранжевый цвет</string>
     <string name="button_green">Зеленый цвет</string>
+    <string name="button_delete_shopping_list">Кнопка удалить список покупок</string>
+    <string name="button_edit_shopping_list">Кнопка редактировать список покупок</string>
     <!-- bottom_nav_menu -->
     <string name="settings">Настройки</string>
     <string name="notes">Заметки</string>
