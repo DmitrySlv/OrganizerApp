@@ -10,6 +10,7 @@ import android.os.Parcelable
 import android.text.Spannable
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -44,6 +45,7 @@ class NoteActivity : AppCompatActivity() {
         getNote()
         init()
         onClickColorPicker()
+        actionMenuCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -136,6 +138,29 @@ class NoteActivity : AppCompatActivity() {
         )
         edDescription.text.trim()
         edDescription.setSelection(startPos)
+    }
+
+    private fun actionMenuCallback() { //убирает всплывающее меню над текстом
+        val actionCallback = object : ActionMode.Callback {
+
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                menu?.clear()
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                menu?.clear()
+                return true
+            }
+
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                return true
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode?) {
+            }
+        }
+        binding.edDescription.customSelectionActionModeCallback = actionCallback
     }
 
     private fun getNote() {
