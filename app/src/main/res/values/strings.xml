@@ -20,4 +20,8 @@
     <!-- new_note_menu -->
     <string name="save">Сохранить</string>
     <string name="bold">Выделить жирным</string>
+    <!-- new_list_dialog -->
+    <string name="new_list">Новая заметка</string>
+    <string name="new_list_hint">Введите описание заметки</string>
+    <string name="button_create">Создать</string>
 </resources>

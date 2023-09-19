@@ -8,6 +8,7 @@ import com.dscreate_app.organizerapp.databinding.ActivityMainBinding
 import com.dscreate_app.organizerapp.fragments.NotesFragment
 import com.dscreate_app.organizerapp.utils.FragmentManager
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.TAG
+import com.dscreate_app.organizerapp.utils.dialogs.NewListDialog
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,7 +36,12 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.new_item -> {
-                    FragmentManager.currentFrag?.onClickNew()
+                   // FragmentManager.currentFrag?.onClickNew()
+                    NewListDialog.showDialog(this, object : NewListDialog.Listener {
+                        override fun onClick(name: String) {
+                            Log.d(TAG, "Name: $name")
+                        }
+                    })
                 }
             }
             true
