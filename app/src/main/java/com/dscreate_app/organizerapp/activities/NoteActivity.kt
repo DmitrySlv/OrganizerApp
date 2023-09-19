@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.Spannable
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +16,7 @@ import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.ActivityNoteBinding
@@ -41,6 +43,7 @@ class NoteActivity : AppCompatActivity() {
         actionBarSettings()
         getNote()
         init()
+        onClickColorPicker()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -70,6 +73,27 @@ class NoteActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    private fun onClickColorPicker() = with(binding) {
+        ibBlack.setOnClickListener {
+            setColorSelectedText(R.color.picker_black)
+        }
+        ibBlue.setOnClickListener {
+            setColorSelectedText(R.color.picker_blue)
+        }
+        ibGreen.setOnClickListener {
+            setColorSelectedText(R.color.picker_green)
+        }
+        ibRed.setOnClickListener {
+            setColorSelectedText(R.color.picker_red)
+        }
+        ibOrange.setOnClickListener {
+            setColorSelectedText(R.color.picker_orange)
+        }
+        ibYellow.setOnClickListener {
+            setColorSelectedText(R.color.picker_yellow)
+        }
+    }
+
     private fun actionBarSettings() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -91,6 +115,25 @@ class NoteActivity : AppCompatActivity() {
             boldStyle = StyleSpan(Typeface.BOLD)
         }
         edDescription.text.setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        edDescription.text.trim()
+        edDescription.setSelection(startPos)
+    }
+
+    private fun setColorSelectedText(colorId: Int) = with(binding) {
+        val startPos = edDescription.selectionStart
+        val endPos = edDescription.selectionEnd
+        val styles= edDescription.text.getSpans(
+            startPos, endPos, ForegroundColorSpan::class.java
+        )
+        if (styles.isNotEmpty()) {
+            edDescription.text.removeSpan(styles[0])
+        }
+        edDescription.text.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(this@NoteActivity, colorId)),
+            startPos,
+            endPos,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         edDescription.text.trim()
         edDescription.setSelection(startPos)
     }
