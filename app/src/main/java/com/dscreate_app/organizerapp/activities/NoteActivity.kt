@@ -99,6 +99,7 @@ class NoteActivity : AppCompatActivity() {
     private fun actionBarSettings() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.title = getString(R.string.new_note)
     }
 
     @SuppressLint("ClickableViewAccessibility")

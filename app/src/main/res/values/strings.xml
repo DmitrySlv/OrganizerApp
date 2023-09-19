@@ -24,4 +24,8 @@
     <string name="new_list">Новая заметка</string>
     <string name="new_list_hint">Введите описание заметки</string>
     <string name="button_create">Создать</string>
+    <!-- fragment_shop_list_names -->
+    <string name="button_create_list">Создать новый список</string>
+    <!-- Note Activity -->
+    <string name="new_note">Заметка</string>
 </resources>

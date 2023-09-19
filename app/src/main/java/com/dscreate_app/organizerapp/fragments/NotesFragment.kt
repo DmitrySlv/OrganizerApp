@@ -50,6 +50,11 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
         observer()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     private fun init() = with(binding) {
         adapter = NotesAdapter(this@NotesFragment, this@NotesFragment)
         rcView.layoutManager = LinearLayoutManager(requireContext())
