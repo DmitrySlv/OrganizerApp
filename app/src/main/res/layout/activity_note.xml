@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/green_light_bg"
-    tools:context=".activities.NoteActivity">
+    tools:context=".activities.NotesActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

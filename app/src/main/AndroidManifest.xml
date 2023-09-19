@@ -14,7 +14,7 @@
         android:theme="@style/Theme.OrganizerApp"
         tools:targetApi="31">
         <activity
-            android:name=".activities.NoteActivity"
+            android:name=".activities.NotesActivity"
             android:exported="false"
             android:windowSoftInputMode="stateVisible|adjustResize"
             android:theme="@style/Theme.NoteActivity"

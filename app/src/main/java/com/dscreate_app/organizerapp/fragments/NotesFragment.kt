@@ -13,7 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.organizerapp.activities.MainApp
-import com.dscreate_app.organizerapp.activities.NoteActivity
+import com.dscreate_app.organizerapp.activities.NotesActivity
 import com.dscreate_app.organizerapp.adapters.NotesAdapter
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.FragmentNotesBinding
@@ -68,7 +68,7 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
     }
 
     override fun onClickNew() {
-        editLauncher.launch(Intent(activity, NoteActivity::class.java))
+        editLauncher.launch(Intent(activity, NotesActivity::class.java))
     }
 
     private fun onEditResult() {
@@ -97,7 +97,7 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
     }
 
     override fun onClickItem(note: NoteItemEntity) {
-        val intent = Intent(activity, NoteActivity::class.java).apply {
+        val intent = Intent(activity, NotesActivity::class.java).apply {
             putExtra(NEW_NOTE_KEY, note)
         }
         editLauncher.launch(intent)

@@ -7,10 +7,10 @@ import androidx.room.RoomDatabase
 import com.dscreate_app.organizerapp.data.entities.LibraryItemEntity
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
-import com.dscreate_app.organizerapp.data.entities.ShoppingListNamesEntity
+import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 
 @Database(entities = [LibraryItemEntity::class, NoteItemEntity::class,
-    ShoppingListItemEntity::class, ShoppingListNamesEntity::class],
+    ShoppingListItemEntity::class, ShoppingListNameEntity::class],
     version = 1)
 abstract class OrganizerDb: RoomDatabase() {
 

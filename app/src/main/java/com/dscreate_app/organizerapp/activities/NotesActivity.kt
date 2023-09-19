@@ -22,18 +22,15 @@ import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.ActivityNoteBinding
 import com.dscreate_app.organizerapp.utils.HtmlManager
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.DATE_FORMAT
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.EDIT_STATE_KEY
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.EMPTY
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.NEW
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.NEW_NOTE_KEY
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.UPDATE
+import com.dscreate_app.organizerapp.utils.TimeManager
 import com.dscreate_app.organizerapp.utils.TouchListenerColor
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
-class NoteActivity : AppCompatActivity() {
+class NotesActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityNoteBinding.inflate(layoutInflater) }
     private var note: NoteItemEntity? = null
@@ -132,7 +129,7 @@ class NoteActivity : AppCompatActivity() {
             edDescription.text.removeSpan(styles[0])
         }
         edDescription.text.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(this@NoteActivity, colorId)),
+            ForegroundColorSpan(ContextCompat.getColor(this@NotesActivity, colorId)),
             startPos,
             endPos,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -205,29 +202,24 @@ class NoteActivity : AppCompatActivity() {
         )
     }
 
-    private fun getCurrentTime(): String {
-        val formatter = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-        return formatter.format(Calendar.getInstance().time)
-    }
-
     private fun createNewNote(): NoteItemEntity = with(binding) {
         return NoteItemEntity(
             null,
             edTitle.text.toString(),
            HtmlManager.toHtml(edDescription.text),
-            getCurrentTime(),
+            TimeManager.getCurrentTime(),
             EMPTY
         )
     }
 
     private fun openColorPicker() = with(binding) {
         colorPicker.visibility = View.VISIBLE
-        val openAnim = AnimationUtils.loadAnimation(this@NoteActivity, R.anim.open_color_picker)
+        val openAnim = AnimationUtils.loadAnimation(this@NotesActivity, R.anim.open_color_picker)
         binding.colorPicker.startAnimation(openAnim)
     }
 
     private fun closeColorPicker() = with(binding) {
-        val closeAnim = AnimationUtils.loadAnimation(this@NoteActivity, R.anim.close_color_picker)
+        val closeAnim = AnimationUtils.loadAnimation(this@NotesActivity, R.anim.close_color_picker)
         closeAnim.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
             }

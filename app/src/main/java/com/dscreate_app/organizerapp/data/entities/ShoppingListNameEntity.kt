@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "shopping_list_names")
 @Parcelize
-data class ShoppingListNamesEntity(
+data class ShoppingListNameEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
 
