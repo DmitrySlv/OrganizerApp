@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">OrganizerApp</string>
     <string name="item">Item</string>
+    <string name="empty">Пусто</string>
     <!-- content_descriptions -->
     <string name="button_delete">Кнопка удалить заметку</string>
     <string name="button_red">Красный цвет</string>
@@ -30,4 +31,6 @@
     <string name="button_create_list">Создать новый список</string>
     <!-- Note Activity -->
     <string name="new_note">Заметка</string>
+    <!-- shopping_list_name_item -->
+    <string name="item_count_def">0/0</string>
 </resources>

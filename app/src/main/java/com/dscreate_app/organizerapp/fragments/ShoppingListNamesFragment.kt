@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.organizerapp.activities.MainApp
+import com.dscreate_app.organizerapp.adapters.ShoppingListNamesAdapter
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.FragmentShopListNamesBinding
 import com.dscreate_app.organizerapp.utils.TimeManager
@@ -23,6 +25,8 @@ class ShoppingListNamesFragment : BaseFragment() {
         MainViewModelFactory((context?.applicationContext as MainApp).database)
     }
 
+    private lateinit var adapter: ShoppingListNamesAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,12 +35,26 @@ class ShoppingListNamesFragment : BaseFragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+        observer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     private fun init() = with(binding) {
+        rcView.layoutManager = LinearLayoutManager(requireContext())
+        adapter = ShoppingListNamesAdapter()
+        rcView.adapter = adapter
     }
 
     private fun observer() {
         mainViewModel.allShoppingListNames.observe(viewLifecycleOwner) {
-
+            adapter.submitList(it)
         }
     }
 
