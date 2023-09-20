@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.activities.MainApp
 import com.dscreate_app.organizerapp.activities.ShoppingListActivity
 import com.dscreate_app.organizerapp.adapters.ShoppingListNameAdapter
@@ -55,6 +56,7 @@ class ShoppingListNameFragment : BaseFragment(),
     }
 
     private fun init() = with(binding) {
+        activity?.title = getString(R.string.shopping_list_name_title)
         rcView.layoutManager = LinearLayoutManager(requireContext())
         adapter = ShoppingListNameAdapter(
             this@ShoppingListNameFragment,

@@ -37,7 +37,15 @@
     <!-- fragment_shop_list_names -->
     <string name="button_create_list">Создать новый список</string>
     <!-- Note Activity -->
-    <string name="new_note">Заметка</string>
+    <string name="new_note">Создать заметку</string>
+    <string name="new_note_edit">Редактировать</string>
     <!-- shopping_list_name_item -->
     <string name="item_count_def">0/0</string>
+    <string name="shopping_list_name_title">Все списки</string>
+    <!-- shopping_list_menu -->
+    <string name="delete_list">Удалить список</string>
+    <string name="clear_list">Очистить список</string>
+    <string name="share_list">Поделиться списком</string>
+    <!-- action_layout -->
+    <string name="new_item_hint">Новый элемент</string>
 </resources>

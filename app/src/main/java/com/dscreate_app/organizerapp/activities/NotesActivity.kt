@@ -16,6 +16,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.dscreate_app.organizerapp.R
@@ -164,6 +165,8 @@ class NotesActivity : AppCompatActivity() {
     private fun getNote() {
         val pNote = intent.parcelable<NoteItemEntity>(NEW_NOTE_KEY)
         if (pNote != null) {
+            val actionBar = supportActionBar
+            actionBar?.title = getString(R.string.new_note_edit)
             note = intent.parcelable<NoteItemEntity>(NEW_NOTE_KEY) as NoteItemEntity
             fillNote()
         }

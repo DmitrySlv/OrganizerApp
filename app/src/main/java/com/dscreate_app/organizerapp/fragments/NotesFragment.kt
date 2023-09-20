@@ -12,6 +12,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.activities.MainApp
 import com.dscreate_app.organizerapp.activities.NotesActivity
 import com.dscreate_app.organizerapp.adapters.NotesAdapter
@@ -56,6 +57,7 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
     }
 
     private fun init() = with(binding) {
+        activity?.title = getString(R.string.notes)
         adapter = NotesAdapter(this@NotesFragment, this@NotesFragment)
         rcView.layoutManager = LinearLayoutManager(requireContext())
         rcView.adapter = adapter
