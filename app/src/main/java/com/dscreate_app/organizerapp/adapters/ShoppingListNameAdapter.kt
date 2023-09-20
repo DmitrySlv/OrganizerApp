@@ -9,11 +9,11 @@ import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ShoppingListNameItemBinding
 
-class ShoppingListNamesAdapter(
+class ShoppingListNameAdapter(
     private val itemClickListener: OnClickListener,
     private val deleteListener: DeleteListener,
     private val editListener: EditListener
-): ListAdapter<ShoppingListNameEntity, ShoppingListNamesAdapter.Holder>(DiffShoppingListNames) {
+): ListAdapter<ShoppingListNameEntity, ShoppingListNameAdapter.Holder>(DiffShoppingListNames) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)
@@ -47,6 +47,7 @@ class ShoppingListNamesAdapter(
                 editListener.editItem(shoppingListNames)
             }
             itemView.setOnClickListener {
+                itemClickListener.onClickItem(shoppingListNames)
             }
         }
     }

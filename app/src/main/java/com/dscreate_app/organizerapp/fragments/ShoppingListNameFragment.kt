@@ -1,5 +1,6 @@
 package com.dscreate_app.organizerapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.organizerapp.activities.MainApp
-import com.dscreate_app.organizerapp.adapters.ShoppingListNamesAdapter
+import com.dscreate_app.organizerapp.activities.ShoppingListActivity
+import com.dscreate_app.organizerapp.adapters.ShoppingListNameAdapter
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.FragmentShopListNamesBinding
 import com.dscreate_app.organizerapp.utils.OrganizerConsts
@@ -17,10 +19,10 @@ import com.dscreate_app.organizerapp.utils.dialogs.NewListDialog
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
-class ShoppingListNamesFragment : BaseFragment(),
-    ShoppingListNamesAdapter.OnClickListener,
-    ShoppingListNamesAdapter.DeleteListener,
-    ShoppingListNamesAdapter.EditListener
+class ShoppingListNameFragment : BaseFragment(),
+    ShoppingListNameAdapter.OnClickListener,
+    ShoppingListNameAdapter.DeleteListener,
+    ShoppingListNameAdapter.EditListener
 {
 
     private var _binding: FragmentShopListNamesBinding? = null
@@ -31,7 +33,7 @@ class ShoppingListNamesFragment : BaseFragment(),
         MainViewModelFactory((context?.applicationContext as MainApp).database)
     }
 
-    private lateinit var adapter: ShoppingListNamesAdapter
+    private lateinit var adapter: ShoppingListNameAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +56,10 @@ class ShoppingListNamesFragment : BaseFragment(),
 
     private fun init() = with(binding) {
         rcView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = ShoppingListNamesAdapter(
-            this@ShoppingListNamesFragment,
-            this@ShoppingListNamesFragment,
-            this@ShoppingListNamesFragment
+        adapter = ShoppingListNameAdapter(
+            this@ShoppingListNameFragment,
+            this@ShoppingListNameFragment,
+            this@ShoppingListNameFragment
         )
         rcView.adapter = adapter
     }
@@ -101,6 +103,10 @@ class ShoppingListNamesFragment : BaseFragment(),
     }
 
     override fun onClickItem(shoppingListName: ShoppingListNameEntity) {
+        val intent = Intent(requireActivity(), ShoppingListActivity::class.java).apply {
+            putExtra(OrganizerConsts.SHOPPING_LIST_NAME, shoppingListName)
+        }
+        startActivity(intent)
     }
 
     companion object {
@@ -109,6 +115,6 @@ class ShoppingListNamesFragment : BaseFragment(),
         private const val ITEMS_IDS = 0
 
         @JvmStatic
-        fun newInstance() = ShoppingListNamesFragment()
+        fun newInstance() = ShoppingListNameFragment()
     }
 }
