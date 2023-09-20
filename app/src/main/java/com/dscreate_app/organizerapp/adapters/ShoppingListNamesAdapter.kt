@@ -41,11 +41,11 @@ class ShoppingListNamesAdapter: ListAdapter<ShoppingListNameEntity, ShoppingList
         }
     }
 
-    interface DeleteListener {
-        fun deleteItem(id: Int)
-    }
-
-    interface OnClickListener {
-        fun onClickItem(shoppingListNames: ShoppingListNameEntity)
-    }
+//    interface DeleteListener {
+//        fun deleteItem(id: Int)
+//    }
+//
+//    interface OnClickListener {
+//        fun onClickItem(shoppingListNames: ShoppingListNameEntity)
+//    }
 }
