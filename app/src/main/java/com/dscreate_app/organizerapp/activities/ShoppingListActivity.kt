@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MenuItem.OnActionExpandListener
 import androidx.activity.viewModels
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
@@ -22,6 +23,7 @@ class ShoppingListActivity : AppCompatActivity() {
         MainViewModelFactory((applicationContext as MainApp).database)
     }
     private var shoppingListName: ShoppingListNameEntity? = null
+    private lateinit var saveItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,13 +31,30 @@ class ShoppingListActivity : AppCompatActivity() {
         init()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.shopping_list_menu, menu)
+        saveItem = menu.findItem(R.id.save)
+        val newItem = menu.findItem(R.id.new_item)
+        newItem.setOnActionExpandListener(expandActionView())
+        saveItem.isVisible = false
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return super.onOptionsItemSelected(item)
+    //слушатель открытия/закрытия кнопки меню для создания
+    private fun expandActionView(): OnActionExpandListener {
+        return object : OnActionExpandListener {
+
+            override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+                saveItem.isVisible = true
+                return true
+            }
+
+            override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                saveItem.isVisible = false
+                invalidateOptionsMenu()
+                return true
+            }
+        }
     }
 
     private fun init() = with(binding) {

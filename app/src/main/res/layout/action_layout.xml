@@ -10,5 +10,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="@string/new_item_hint"
-        android:inputType="text" />
+        android:inputType="text"
+        android:textColor="@color/white" />
 </LinearLayout>
