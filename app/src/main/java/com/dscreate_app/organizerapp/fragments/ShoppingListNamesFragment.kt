@@ -11,11 +11,12 @@ import com.dscreate_app.organizerapp.adapters.ShoppingListNamesAdapter
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.FragmentShopListNamesBinding
 import com.dscreate_app.organizerapp.utils.TimeManager
+import com.dscreate_app.organizerapp.utils.dialogs.DeleteListDialog
 import com.dscreate_app.organizerapp.utils.dialogs.NewListDialog
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
-class ShoppingListNamesFragment : BaseFragment() {
+class ShoppingListNamesFragment : BaseFragment(), ShoppingListNamesAdapter.OnClickListener, ShoppingListNamesAdapter.DeleteListener {
 
     private var _binding: FragmentShopListNamesBinding? = null
     private val binding: FragmentShopListNamesBinding
@@ -48,7 +49,10 @@ class ShoppingListNamesFragment : BaseFragment() {
 
     private fun init() = with(binding) {
         rcView.layoutManager = LinearLayoutManager(requireContext())
-        adapter = ShoppingListNamesAdapter()
+        adapter = ShoppingListNamesAdapter(
+            this@ShoppingListNamesFragment,
+            this@ShoppingListNamesFragment
+        )
         rcView.adapter = adapter
     }
 
@@ -72,6 +76,17 @@ class ShoppingListNamesFragment : BaseFragment() {
                 mainViewModel.insertShoppingListName(shoppingListName)
             }
         })
+    }
+
+    override fun deleteItem(id: Int) {
+        DeleteListDialog.showDialog(requireContext(), object : DeleteListDialog.Listener {
+            override fun onClick() {
+                mainViewModel.deleteShoppingListNames(id)
+            }
+        })
+    }
+
+    override fun onClickItem(shoppingListNames: ShoppingListNameEntity) {
     }
 
     companion object {

@@ -21,6 +21,9 @@ interface Dao {
     @Query("DELETE FROM note_item WHERE id IS :id")
     suspend fun deleteNote(id: Int)
 
+    @Query("DELETE FROM shopping_list_names WHERE id IS :id")
+    suspend fun deleteShoppingListNames(id: Int)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNote(note: NoteItemEntity)
 

@@ -10,6 +10,7 @@ import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import kotlinx.coroutines.launch
 
 class MainViewModel(database: OrganizerDb): ViewModel() {
+
     private val dao = database.getDao()
 
     val allNotes: LiveData<List<NoteItemEntity>> = dao.getAllNotes().asLiveData()
@@ -30,5 +31,9 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
 
     fun deleteNote(id: Int) = viewModelScope.launch {
         dao.deleteNote(id)
+    }
+
+    fun deleteShoppingListNames(id: Int) = viewModelScope.launch {
+        dao.deleteShoppingListNames(id)
     }
 }

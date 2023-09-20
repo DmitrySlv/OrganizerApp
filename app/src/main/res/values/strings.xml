@@ -27,6 +27,11 @@
     <string name="new_list">Новая заметка</string>
     <string name="new_list_hint">Введите описание заметки</string>
     <string name="button_create">Создать</string>
+    <!-- delete_list_dialog -->
+    <string name="delete_item_dialog">Вы действительно хотите удалить этот элемент списка?</string>
+    <string name="delete_alert">Удаление элемента</string>
+    <string name="delete_item_btn">Удалить</string>
+    <string name="delete_item_cancel_btn">Отмена</string>
     <!-- fragment_shop_list_names -->
     <string name="button_create_list">Создать новый список</string>
     <!-- Note Activity -->
