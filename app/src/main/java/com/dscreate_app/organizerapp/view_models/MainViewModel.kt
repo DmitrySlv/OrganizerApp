@@ -29,6 +29,10 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
         dao.updateNote(note)
     }
 
+    fun updateShoppingListName(shoppingListName: ShoppingListNameEntity) = viewModelScope.launch {
+        dao.updateShoppingListName(shoppingListName)
+    }
+
     fun deleteNote(id: Int) = viewModelScope.launch {
         dao.deleteNote(id)
     }

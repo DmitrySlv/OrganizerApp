@@ -10,13 +10,18 @@ import com.dscreate_app.organizerapp.activities.MainApp
 import com.dscreate_app.organizerapp.adapters.ShoppingListNamesAdapter
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.FragmentShopListNamesBinding
+import com.dscreate_app.organizerapp.utils.OrganizerConsts
 import com.dscreate_app.organizerapp.utils.TimeManager
 import com.dscreate_app.organizerapp.utils.dialogs.DeleteListDialog
 import com.dscreate_app.organizerapp.utils.dialogs.NewListDialog
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
-class ShoppingListNamesFragment : BaseFragment(), ShoppingListNamesAdapter.OnClickListener, ShoppingListNamesAdapter.DeleteListener {
+class ShoppingListNamesFragment : BaseFragment(),
+    ShoppingListNamesAdapter.OnClickListener,
+    ShoppingListNamesAdapter.DeleteListener,
+    ShoppingListNamesAdapter.EditListener
+{
 
     private var _binding: FragmentShopListNamesBinding? = null
     private val binding: FragmentShopListNamesBinding
@@ -51,6 +56,7 @@ class ShoppingListNamesFragment : BaseFragment(), ShoppingListNamesAdapter.OnCli
         rcView.layoutManager = LinearLayoutManager(requireContext())
         adapter = ShoppingListNamesAdapter(
             this@ShoppingListNamesFragment,
+            this@ShoppingListNamesFragment,
             this@ShoppingListNamesFragment
         )
         rcView.adapter = adapter
@@ -75,7 +81,7 @@ class ShoppingListNamesFragment : BaseFragment(), ShoppingListNamesAdapter.OnCli
                 )
                 mainViewModel.insertShoppingListName(shoppingListName)
             }
-        })
+        }, OrganizerConsts.EMPTY)
     }
 
     override fun deleteItem(id: Int) {
@@ -86,7 +92,15 @@ class ShoppingListNamesFragment : BaseFragment(), ShoppingListNamesAdapter.OnCli
         })
     }
 
-    override fun onClickItem(shoppingListNames: ShoppingListNameEntity) {
+    override fun editItem(shoppingListName: ShoppingListNameEntity) {
+        NewListDialog.showDialog(requireContext(), object : NewListDialog.Listener {
+            override fun onClick(name: String) {
+                mainViewModel.updateShoppingListName(shoppingListName.copy(name = name))
+            }
+        }, shoppingListName.name)
+    }
+
+    override fun onClickItem(shoppingListName: ShoppingListNameEntity) {
     }
 
     companion object {

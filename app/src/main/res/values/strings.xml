@@ -24,9 +24,11 @@
     <string name="save">Сохранить</string>
     <string name="bold">Выделить жирным</string>
     <!-- new_list_dialog -->
-    <string name="new_list">Новая заметка</string>
-    <string name="new_list_hint">Введите описание заметки</string>
+    <string name="new_list">Новый список</string>
+    <string name="new_list_edit">Редактировать список</string>
+    <string name="new_list_hint">Введите описание списка</string>
     <string name="button_create">Создать</string>
+    <string name="button_edit">Изменить</string>
     <!-- delete_list_dialog -->
     <string name="delete_item_dialog">Вы действительно хотите удалить этот элемент списка?</string>
     <string name="delete_alert">Удаление элемента</string>
