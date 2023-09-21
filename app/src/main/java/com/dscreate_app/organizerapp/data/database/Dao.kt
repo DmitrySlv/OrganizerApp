@@ -16,6 +16,9 @@ interface Dao {
     @Query("SELECT * FROM shopping_list_names")
     fun getAllShoppingListNames(): Flow<List<ShoppingListNameEntity>>
 
+    @Query("SELECT * FROM shopping_list_item WHERE listId LIKE :listId")
+    fun getAllShoppingListItems(listId: Int): Flow<List<ShoppingListItemEntity>>
+
     @Query("SELECT * FROM note_item")
     fun getAllNotes(): Flow<List<NoteItemEntity>>
 

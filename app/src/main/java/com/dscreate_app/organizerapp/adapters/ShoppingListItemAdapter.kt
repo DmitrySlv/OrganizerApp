@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
+import com.dscreate_app.organizerapp.databinding.ShoppingListItemBinding
 import com.dscreate_app.organizerapp.databinding.ShoppingListNameItemBinding
 
 class ShoppingListItemAdapter(
@@ -47,18 +48,23 @@ class ShoppingListItemAdapter(
         private val deleteListener: DeleteListener,
         private val editListener: EditListener
     ) : ViewHolder(itemView) {
-        private val binding = ShoppingListNameItemBinding.bind(itemView)
 
-        fun setItemData(shoppingListItem: ShoppingListItemEntity) = with(binding) {
+        fun setItemData(shoppingListItem: ShoppingListItemEntity) {
+            val binding = ShoppingListItemBinding.bind(itemView)
+            binding.apply {
+                tvName.text = shoppingListItem.name
+            }
+            onClicksItemData(shoppingListItem)
         }
 
-        private fun onClicksItemData(shoppingListItem: ShoppingListItemEntity) = with(binding) {
+        private fun onClicksItemData(shoppingListItem: ShoppingListItemEntity) {
+            onClicksLibraryData(shoppingListItem)
         }
 
-        fun setLibraryData(shoppingListItem: ShoppingListItemEntity) = with(binding) {
+        fun setLibraryData(shoppingListItem: ShoppingListItemEntity) {
         }
 
-        private fun onClicksLibraryData(shoppingListItem: ShoppingListItemEntity) = with(binding) {
+        private fun onClicksLibraryData(shoppingListItem: ShoppingListItemEntity) {
         }
     }
 

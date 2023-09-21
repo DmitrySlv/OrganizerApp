@@ -19,6 +19,10 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
     val allShoppingListNames: LiveData<List<ShoppingListNameEntity>> =
         dao.getAllShoppingListNames().asLiveData()
 
+    fun getAllShoppingListItems(listId: Int): LiveData<List<ShoppingListItemEntity>> {
+        return dao.getAllShoppingListItems(listId).asLiveData()
+    }
+
     fun insertNote(note: NoteItemEntity) = viewModelScope.launch {
         dao.insertNote(note)
     }

@@ -10,7 +10,9 @@ import android.view.MenuItem.OnActionExpandListener
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.organizerapp.R
+import com.dscreate_app.organizerapp.adapters.ShoppingListItemAdapter
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ActivityShoppingListBinding
@@ -18,7 +20,11 @@ import com.dscreate_app.organizerapp.utils.OrganizerConsts
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
-class ShoppingListActivity : AppCompatActivity() {
+class ShoppingListActivity : AppCompatActivity(),
+    ShoppingListItemAdapter.OnClickListener,
+    ShoppingListItemAdapter.DeleteListener,
+    ShoppingListItemAdapter.EditListener
+{
     private val binding by lazy { ActivityShoppingListBinding.inflate(layoutInflater) }
 
     private val mainViewModel: MainViewModel by viewModels {
@@ -27,16 +33,18 @@ class ShoppingListActivity : AppCompatActivity() {
     private var shoppingListName: ShoppingListNameEntity? = null
     private lateinit var saveItem: MenuItem
     private var edItem: EditText? = null
+    private var adapter: ShoppingListItemAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         init()
+        listItemObserver()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.shopping_list_menu, menu)
-        saveItem = menu.findItem(R.id.save) ?: return true
+        saveItem = menu?.findItem(R.id.save_item)!!
         val newItem = menu.findItem(R.id.new_item)
         edItem = newItem.actionView?.findViewById(R.id.edNewShoppingItem) as EditText
         newItem.setOnActionExpandListener(expandActionView())
@@ -69,10 +77,20 @@ class ShoppingListActivity : AppCompatActivity() {
     }
 
     private fun init() = with(binding) {
+        setRcView()
         title = getString(R.string.shopping_list)
-        shoppingListName =
-            intent.parcelable<ShoppingListNameEntity>(OrganizerConsts.SHOPPING_LIST_NAME)
-                    as ShoppingListNameEntity
+        shoppingListName = intent.parcelable<ShoppingListNameEntity>(
+            OrganizerConsts.SHOPPING_LIST_NAME) as ShoppingListNameEntity
+    }
+
+    private fun setRcView() = with(binding) {
+        adapter = ShoppingListItemAdapter(
+            this@ShoppingListActivity,
+            this@ShoppingListActivity,
+            this@ShoppingListActivity
+        )
+        rcView.layoutManager = LinearLayoutManager(this@ShoppingListActivity)
+        rcView.adapter = adapter
     }
 
     private inline fun <reified T : Parcelable> Intent.parcelable(key: String): T? = when {
@@ -82,17 +100,33 @@ class ShoppingListActivity : AppCompatActivity() {
 
     private fun addNewShoppingItem() {
         if (edItem?.text.toString().isEmpty()) return
-        val newItem = shoppingListName?.id?.let {
-            ShoppingListItemEntity(
+        val newItem = ShoppingListItemEntity(
                 null,
                 edItem?.text.toString(),
                 null,
                 ITEM_CHECKED,
-                it,
+                shoppingListName?.id!!,
                 ITEM_TYPE
             )
+        edItem?.setText("")
+        mainViewModel.insertShoppingListItem(newItem)
+    }
+
+    private fun listItemObserver() {
+        shoppingListName?.id?.let { id ->
+            mainViewModel.getAllShoppingListItems(id).observe(this) {
+                adapter?.submitList(it)
+            }
         }
-        newItem?.let { mainViewModel.insertShoppingListItem(it) }
+    }
+
+    override fun deleteItem(id: Int) {
+    }
+
+    override fun onClickItem(shoppingListName: ShoppingListNameEntity) {
+    }
+
+    override fun editItem(shoppingListName: ShoppingListNameEntity) {
     }
 
     companion object {

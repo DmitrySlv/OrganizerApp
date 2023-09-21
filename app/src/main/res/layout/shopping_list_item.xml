@@ -68,7 +68,6 @@
                 android:id="@+id/ibEdit"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="8dp"
                 android:background="@null"
                 android:contentDescription="@string/button_edit"
                 android:src="@drawable/baseline_edit_library"
