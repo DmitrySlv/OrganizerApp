@@ -13,7 +13,7 @@ class ShoppingListNameAdapter(
     private val itemClickListener: OnClickListener,
     private val deleteListener: DeleteListener,
     private val editListener: EditListener
-): ListAdapter<ShoppingListNameEntity, ShoppingListNameAdapter.Holder>(DiffShoppingListNames) {
+): ListAdapter<ShoppingListNameEntity, ShoppingListNameAdapter.Holder>(DiffShoppingListName) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context)

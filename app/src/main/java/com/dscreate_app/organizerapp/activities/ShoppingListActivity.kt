@@ -33,7 +33,7 @@ class ShoppingListActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.shopping_list_menu, menu)
-        saveItem = menu.findItem(R.id.save)
+        saveItem = menu.findItem(R.id.save) ?: return true
         val newItem = menu.findItem(R.id.new_item)
         newItem.setOnActionExpandListener(expandActionView())
         saveItem.isVisible = false
@@ -61,7 +61,6 @@ class ShoppingListActivity : AppCompatActivity() {
         title = getString(R.string.shopping_list)
         shoppingListName = intent.parcelable<ShoppingListNameEntity>(OrganizerConsts.SHOPPING_LIST_NAME)
                 as ShoppingListNameEntity
-        tvTest.text = shoppingListName?.name
     }
 
     private inline fun <reified T : Parcelable> Intent.parcelable(key: String): T? = when {
