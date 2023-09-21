@@ -6,6 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
+import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -28,7 +29,10 @@ interface Dao {
     suspend fun insertNote(note: NoteItemEntity)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertShopListName(shoppingListName: ShoppingListNameEntity)
+    suspend fun insertShoppingListName(shoppingListName: ShoppingListNameEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertShoppingListItem(shoppingListItem: ShoppingListItemEntity)
 
     @Update
     suspend fun updateNote(note: NoteItemEntity)
