@@ -10,21 +10,21 @@ import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ShoppingListNameItemBinding
 
-class ShoppingListNameItemAdapter(
+class ShoppingListItemAdapter(
     private val itemClickListener: OnClickListener,
     private val deleteListener: DeleteListener,
     private val editListener: EditListener
-): ListAdapter<ShoppingListItemEntity, ShoppingListNameItemAdapter.Holder>(DiffShoppingListNameItem) {
+): ListAdapter<ShoppingListItemEntity, ShoppingListItemAdapter.Holder>(DiffShoppingListNameItem) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return if (viewType == SHOPPING_LIST_NAME_ITEM) {
             val shoppingItem = LayoutInflater.from(parent.context)
-                .inflate(R.layout.shopping_list_name_item, parent, false)
+                .inflate(R.layout.shopping_list_item, parent, false)
             Holder(shoppingItem, itemClickListener, deleteListener, editListener)
 
         } else {
             val libraryItem = LayoutInflater.from(parent.context)
-                .inflate(R.layout.shopping_list_name_item, parent, false)
+                .inflate(R.layout.library_list_item, parent, false)
             Holder(libraryItem, itemClickListener, deleteListener, editListener)
         }
     }
