@@ -51,15 +51,16 @@
                 android:contentDescription="@string/button_edit"
                 android:src="@drawable/baseline_library_edit"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageButton"
-                app:layout_constraintTop_toTopOf="@+id/imageButton" />
+                app:layout_constraintEnd_toStartOf="@+id/ibDelete"
+                app:layout_constraintTop_toTopOf="@+id/ibDelete" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/ibDelete"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginEnd="8dp"
                 android:background="@null"
+                android:contentDescription="@string/delete_item_btn"
                 android:src="@drawable/baseline_delete_library_item"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
