@@ -51,7 +51,11 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
         dao.deleteNote(id)
     }
 
-    fun deleteShoppingListNames(id: Int) = viewModelScope.launch {
-        dao.deleteShoppingListNames(id)
+    fun deleteShoppingList(id: Int, deleteList: Boolean) = viewModelScope.launch {
+        if (deleteList) {
+            dao.deleteShoppingListNames(id)
+        } else {
+            dao.deleteShoppingListItemsByListId(id)
+        }
     }
 }

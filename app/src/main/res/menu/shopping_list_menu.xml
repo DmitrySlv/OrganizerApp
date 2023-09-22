@@ -22,7 +22,7 @@
         android:title="@string/new_item"
         android:icon="@drawable/baseline_new_shopping_item"
         app:actionLayout="@layout/action_layout"
-        app:showAsAction="ifRoom|collapseActionView"
+        app:showAsAction="always|collapseActionView"
         android:orderInCategory="1"
         />
 
@@ -30,7 +30,7 @@
         android:id="@+id/save_item"
         android:title="@string/save"
         android:icon="@drawable/baseline_save"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:orderInCategory="2"
         />
 

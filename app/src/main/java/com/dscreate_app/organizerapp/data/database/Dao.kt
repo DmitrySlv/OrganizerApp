@@ -28,6 +28,9 @@ interface Dao {
     @Query("DELETE FROM shopping_list_names WHERE id IS :id")
     suspend fun deleteShoppingListNames(id: Int)
 
+    @Query("DELETE FROM shopping_list_item WHERE listId LIKE :listId")
+    suspend fun deleteShoppingListItemsByListId(listId: Int)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNote(note: NoteItemEntity)
 

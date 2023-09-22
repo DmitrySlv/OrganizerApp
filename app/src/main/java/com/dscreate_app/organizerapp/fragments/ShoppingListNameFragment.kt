@@ -100,7 +100,7 @@ class ShoppingListNameFragment : BaseFragment(),
     override fun deleteItem(id: Int) {
         DeleteListDialog.showDialog(requireContext(), object : DeleteListDialog.Listener {
             override fun onClick() {
-                mainViewModel.deleteShoppingListNames(id)
+                mainViewModel.deleteShoppingList(id, true)
             }
         })
     }

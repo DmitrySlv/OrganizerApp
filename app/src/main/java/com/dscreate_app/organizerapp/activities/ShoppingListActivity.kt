@@ -54,8 +54,15 @@ class ShoppingListActivity : AppCompatActivity(),
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.save_item) {
-            addNewShoppingItem()
+        when(item.itemId) {
+            R.id.save_item -> { addNewShoppingItem() }
+            R.id.delete_list -> {
+                shoppingListName?.id?.let { mainViewModel.deleteShoppingList(it, true) }
+                finish()
+            }
+            R.id.clear_list -> {
+                shoppingListName?.id?.let { mainViewModel.deleteShoppingList(it, false) }
+            }
         }
         return super.onOptionsItemSelected(item)
     }
