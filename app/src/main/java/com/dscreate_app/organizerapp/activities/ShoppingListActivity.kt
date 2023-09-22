@@ -18,10 +18,14 @@ import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ActivityShoppingListBinding
 import com.dscreate_app.organizerapp.utils.OrganizerConsts
+import com.dscreate_app.organizerapp.utils.dialogs.EditListItemDialog
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
-class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClickListener {
+class ShoppingListActivity : AppCompatActivity(),
+    ShoppingListItemAdapter.OnClickListener,
+    ShoppingListItemAdapter.EditItemListener
+{
     private val binding by lazy { ActivityShoppingListBinding.inflate(layoutInflater) }
 
     private val mainViewModel: MainViewModel by viewModels {
@@ -81,7 +85,10 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
     }
 
     private fun setRcView() = with(binding) {
-        adapter = ShoppingListItemAdapter(this@ShoppingListActivity)
+        adapter = ShoppingListItemAdapter(
+            this@ShoppingListActivity,
+            this@ShoppingListActivity
+        )
         rcView.layoutManager = LinearLayoutManager(this@ShoppingListActivity)
         rcView.adapter = adapter
     }
@@ -124,6 +131,15 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
 
     override fun onClickItem(shoppingListItem: ShoppingListItemEntity) {
         mainViewModel.updateShoppingListItem(shoppingListItem)
+    }
+
+    override fun editItem(shoppingListItem: ShoppingListItemEntity) {
+        EditListItemDialog.showDialog(
+            this, shoppingListItem, object : EditListItemDialog.Listener {
+            override fun onClick(item: ShoppingListItemEntity) {
+                mainViewModel.updateShoppingListItem(item)
+            }
+        })
     }
 
     companion object {

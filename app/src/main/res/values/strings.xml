@@ -48,4 +48,9 @@
     <string name="share_list">Поделиться списком</string>
     <!-- action_layout -->
     <string name="new_item_hint">Новый элемент</string>
+    <!-- edit_shopping_list_item_dialog -->
+    <string name="update_list_item">Редактировать</string>
+    <string name="name_hint">Название</string>
+    <string name="item_info_hint">Описание</string>
+    <string name="btn_update_item">Изменить</string>
 </resources>

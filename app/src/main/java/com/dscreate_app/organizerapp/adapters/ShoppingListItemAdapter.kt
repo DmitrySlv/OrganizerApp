@@ -12,19 +12,20 @@ import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.databinding.ShoppingListItemBinding
 
 class ShoppingListItemAdapter(
-    private val itemClickListener: OnClickListener
+    private val itemClickListener: OnClickListener,
+    private val editItemListener: EditItemListener
 ): ListAdapter<ShoppingListItemEntity, ShoppingListItemAdapter.Holder>(DiffShoppingListNameItem) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return if (viewType == SHOPPING_LIST_NAME_ITEM) {
             val shoppingItem = LayoutInflater.from(parent.context)
                 .inflate(R.layout.shopping_list_item, parent, false)
-            Holder(shoppingItem, itemClickListener)
+            Holder(shoppingItem, itemClickListener, editItemListener)
 
         } else {
             val libraryItem = LayoutInflater.from(parent.context)
                 .inflate(R.layout.library_list_item, parent, false)
-            Holder(libraryItem, itemClickListener)
+            Holder(libraryItem, itemClickListener, editItemListener)
         }
     }
 
@@ -42,7 +43,8 @@ class ShoppingListItemAdapter(
 
     class Holder(
         itemView: View,
-        private val itemClickListener: OnClickListener
+        private val itemClickListener: OnClickListener,
+        private val editItemListener: EditItemListener
     ) : ViewHolder(itemView) {
 
         fun setItemData(shoppingListItem: ShoppingListItemEntity) {
@@ -64,6 +66,9 @@ class ShoppingListItemAdapter(
                     itemClickListener.onClickItem(shoppingListItem.copy(
                         itemChecked = checkBox.isChecked)
                     )
+                }
+                ibEdit.setOnClickListener {
+                    editItemListener.editItem(shoppingListItem)
                 }
             }
         }
@@ -102,6 +107,10 @@ class ShoppingListItemAdapter(
 
     interface OnClickListener {
         fun onClickItem(shoppingListItem: ShoppingListItemEntity)
+    }
+
+    interface EditItemListener {
+        fun editItem(shoppingListItem: ShoppingListItemEntity)
     }
 
     companion object {
