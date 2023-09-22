@@ -9,25 +9,22 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
-import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ShoppingListItemBinding
 
 class ShoppingListItemAdapter(
-    private val itemClickListener: OnClickListener,
-    private val deleteListener: DeleteListener,
-    private val editListener: EditListener
+    private val itemClickListener: OnClickListener
 ): ListAdapter<ShoppingListItemEntity, ShoppingListItemAdapter.Holder>(DiffShoppingListNameItem) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return if (viewType == SHOPPING_LIST_NAME_ITEM) {
             val shoppingItem = LayoutInflater.from(parent.context)
                 .inflate(R.layout.shopping_list_item, parent, false)
-            Holder(shoppingItem, itemClickListener, deleteListener, editListener)
+            Holder(shoppingItem, itemClickListener)
 
         } else {
             val libraryItem = LayoutInflater.from(parent.context)
                 .inflate(R.layout.library_list_item, parent, false)
-            Holder(libraryItem, itemClickListener, deleteListener, editListener)
+            Holder(libraryItem, itemClickListener)
         }
     }
 
@@ -45,9 +42,7 @@ class ShoppingListItemAdapter(
 
     class Holder(
         itemView: View,
-        private val itemClickListener: OnClickListener,
-        private val deleteListener: DeleteListener,
-        private val editListener: EditListener
+        private val itemClickListener: OnClickListener
     ) : ViewHolder(itemView) {
 
         fun setItemData(shoppingListItem: ShoppingListItemEntity) {
@@ -56,14 +51,21 @@ class ShoppingListItemAdapter(
                 tvName.text = shoppingListItem.name
                 tvInfo.text = shoppingListItem.itemInfo
                 tvInfo.visibility = infoVisibility(shoppingListItem)
-                checkBox.setOnClickListener {
-                    setPaintFlagAndColor(binding)
-                }
+
+                checkBox.isChecked = shoppingListItem.itemChecked
+                setPaintFlagAndColor(binding)
             }
             onClicksItemData(shoppingListItem)
         }
 
         private fun onClicksItemData(shoppingListItem: ShoppingListItemEntity) {
+            ShoppingListItemBinding.bind(itemView).apply {
+                checkBox.setOnClickListener {
+                    itemClickListener.onClickItem(shoppingListItem.copy(
+                        itemChecked = checkBox.isChecked)
+                    )
+                }
+            }
         }
 
         fun setLibraryData(shoppingListItem: ShoppingListItemEntity) {
@@ -98,16 +100,8 @@ class ShoppingListItemAdapter(
         }
     }
 
-    interface DeleteListener {
-        fun deleteItem(id: Int)
-    }
-
     interface OnClickListener {
-        fun onClickItem(shoppingListName: ShoppingListNameEntity)
-    }
-
-    interface EditListener {
-        fun editItem(shoppingListName: ShoppingListNameEntity)
+        fun onClickItem(shoppingListItem: ShoppingListItemEntity)
     }
 
     companion object {

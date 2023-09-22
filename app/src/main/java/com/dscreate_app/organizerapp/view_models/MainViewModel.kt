@@ -39,6 +39,10 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
         dao.updateNote(note)
     }
 
+    fun updateShoppingListItem(shoppingListItem: ShoppingListItemEntity) = viewModelScope.launch {
+        dao.updateShoppingListItem(shoppingListItem)
+    }
+
     fun updateShoppingListName(shoppingListName: ShoppingListNameEntity) = viewModelScope.launch {
         dao.updateShoppingListName(shoppingListName)
     }

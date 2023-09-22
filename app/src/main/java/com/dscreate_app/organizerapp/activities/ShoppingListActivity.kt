@@ -21,11 +21,7 @@ import com.dscreate_app.organizerapp.utils.OrganizerConsts
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
-class ShoppingListActivity : AppCompatActivity(),
-    ShoppingListItemAdapter.OnClickListener,
-    ShoppingListItemAdapter.DeleteListener,
-    ShoppingListItemAdapter.EditListener
-{
+class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClickListener {
     private val binding by lazy { ActivityShoppingListBinding.inflate(layoutInflater) }
 
     private val mainViewModel: MainViewModel by viewModels {
@@ -85,11 +81,7 @@ class ShoppingListActivity : AppCompatActivity(),
     }
 
     private fun setRcView() = with(binding) {
-        adapter = ShoppingListItemAdapter(
-            this@ShoppingListActivity,
-            this@ShoppingListActivity,
-            this@ShoppingListActivity
-        )
+        adapter = ShoppingListItemAdapter(this@ShoppingListActivity)
         rcView.layoutManager = LinearLayoutManager(this@ShoppingListActivity)
         rcView.adapter = adapter
     }
@@ -105,7 +97,7 @@ class ShoppingListActivity : AppCompatActivity(),
                 null,
                 edItem?.text.toString(),
                 null,
-                ITEM_CHECKED,
+                false,
                 shoppingListName?.id!!,
                 ITEM_TYPE
             )
@@ -118,11 +110,6 @@ class ShoppingListActivity : AppCompatActivity(),
             mainViewModel.getAllShoppingListItems(id).observe(this) {
                 adapter?.submitList(it)
                 isVisibleView(it)
-//                binding.tvEmpty.visibility = if (it.isEmpty()) {
-//                    View.VISIBLE
-//                } else {
-//                    View.GONE
-//                }
             }
         }
     }
@@ -135,17 +122,11 @@ class ShoppingListActivity : AppCompatActivity(),
         }
     }
 
-    override fun deleteItem(id: Int) {
-    }
-
-    override fun onClickItem(shoppingListName: ShoppingListNameEntity) {
-    }
-
-    override fun editItem(shoppingListName: ShoppingListNameEntity) {
+    override fun onClickItem(shoppingListItem: ShoppingListItemEntity) {
+        mainViewModel.updateShoppingListItem(shoppingListItem)
     }
 
     companion object {
-        private const val ITEM_CHECKED = 0
         private const val ITEM_TYPE = 0
     }
 }

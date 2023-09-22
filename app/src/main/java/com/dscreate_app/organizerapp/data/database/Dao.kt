@@ -43,4 +43,7 @@ interface Dao {
     @Update
     suspend fun updateShoppingListName(shoppingListName: ShoppingListNameEntity)
 
+    @Update
+    suspend fun updateShoppingListItem(shoppingListItem: ShoppingListItemEntity)
+
 }
