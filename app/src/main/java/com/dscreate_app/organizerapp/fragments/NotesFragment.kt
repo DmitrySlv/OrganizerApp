@@ -66,6 +66,15 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
     private fun observer() {
         mainViewModel.allNotes.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            isViewVisible(it)
+        }
+    }
+
+    private fun isViewVisible(noteItemEntity: List<NoteItemEntity>) {
+        if (noteItemEntity.isEmpty()) {
+            binding.tvEmpty.visibility = View.VISIBLE
+        } else {
+            binding.tvEmpty.visibility = View.GONE
         }
     }
 

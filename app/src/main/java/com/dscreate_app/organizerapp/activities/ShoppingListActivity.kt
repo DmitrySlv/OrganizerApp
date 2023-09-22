@@ -7,6 +7,7 @@ import android.os.Parcelable
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MenuItem.OnActionExpandListener
+import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -116,7 +117,21 @@ class ShoppingListActivity : AppCompatActivity(),
         shoppingListName?.id?.let { id ->
             mainViewModel.getAllShoppingListItems(id).observe(this) {
                 adapter?.submitList(it)
+                isVisibleView(it)
+//                binding.tvEmpty.visibility = if (it.isEmpty()) {
+//                    View.VISIBLE
+//                } else {
+//                    View.GONE
+//                }
             }
+        }
+    }
+
+    private fun isVisibleView(shoppingListItemEntity: List<ShoppingListItemEntity>) {
+        if (shoppingListItemEntity.isEmpty()) {
+            binding.tvEmpty.visibility = View.VISIBLE
+            } else {
+            binding.tvEmpty.visibility =  View.GONE
         }
     }
 

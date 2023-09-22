@@ -69,6 +69,15 @@ class ShoppingListNameFragment : BaseFragment(),
     private fun observer() {
         mainViewModel.allShoppingListNames.observe(viewLifecycleOwner) {
             adapter.submitList(it)
+            isViewVisible(it)
+        }
+    }
+
+    private fun isViewVisible(shoppingListNameEntity: List<ShoppingListNameEntity>) {
+        if (shoppingListNameEntity.isEmpty()) {
+            binding.tvEmpty.visibility = View.VISIBLE
+        } else {
+            binding.tvEmpty.visibility = View.GONE
         }
     }
 

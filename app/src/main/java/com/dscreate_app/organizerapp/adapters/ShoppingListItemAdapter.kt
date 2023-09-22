@@ -53,6 +53,8 @@ class ShoppingListItemAdapter(
             val binding = ShoppingListItemBinding.bind(itemView)
             binding.apply {
                 tvName.text = shoppingListItem.name
+                tvInfo.text = shoppingListItem.itemInfo
+                tvInfo.visibility = infoVisibility(shoppingListItem)
             }
             onClicksItemData(shoppingListItem)
         }
@@ -65,6 +67,14 @@ class ShoppingListItemAdapter(
         }
 
         private fun onClicksLibraryData(shoppingListItem: ShoppingListItemEntity) {
+        }
+
+        private fun infoVisibility(shoppingListItem: ShoppingListItemEntity): Int {
+            return if (shoppingListItem.itemInfo.isNullOrEmpty()) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
         }
     }
 
