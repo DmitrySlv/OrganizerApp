@@ -1,15 +1,16 @@
 package com.dscreate_app.organizerapp.adapters
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ShoppingListItemBinding
-import com.dscreate_app.organizerapp.databinding.ShoppingListNameItemBinding
 
 class ShoppingListItemAdapter(
     private val itemClickListener: OnClickListener,
@@ -55,12 +56,14 @@ class ShoppingListItemAdapter(
                 tvName.text = shoppingListItem.name
                 tvInfo.text = shoppingListItem.itemInfo
                 tvInfo.visibility = infoVisibility(shoppingListItem)
+                checkBox.setOnClickListener {
+                    setPaintFlagAndColor(binding)
+                }
             }
             onClicksItemData(shoppingListItem)
         }
 
         private fun onClicksItemData(shoppingListItem: ShoppingListItemEntity) {
-            onClicksLibraryData(shoppingListItem)
         }
 
         fun setLibraryData(shoppingListItem: ShoppingListItemEntity) {
@@ -74,6 +77,23 @@ class ShoppingListItemAdapter(
                 View.GONE
             } else {
                 View.VISIBLE
+            }
+        }
+
+        //Устанавливает цвет и перечеркивание тексту элементу в списке
+        private fun setPaintFlagAndColor(binding: ShoppingListItemBinding) {
+            binding.apply {
+                if (checkBox.isChecked) {
+                    tvName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    tvInfo.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    tvName.setTextColor(ContextCompat.getColor(root.context, R.color.gray_light))
+                    tvInfo.setTextColor(ContextCompat.getColor(root.context, R.color.gray_light))
+                } else {
+                    tvName.paintFlags = Paint.ANTI_ALIAS_FLAG
+                    tvInfo.paintFlags = Paint.ANTI_ALIAS_FLAG
+                    tvName.setTextColor(ContextCompat.getColor(root.context, R.color.black))
+                    tvInfo.setTextColor(ContextCompat.getColor(root.context, R.color.black))
+                }
             }
         }
     }
