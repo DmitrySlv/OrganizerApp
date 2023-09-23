@@ -18,6 +18,7 @@ import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ActivityShoppingListBinding
 import com.dscreate_app.organizerapp.utils.OrganizerConsts
+import com.dscreate_app.organizerapp.utils.ShareHelper
 import com.dscreate_app.organizerapp.utils.dialogs.EditListItemDialog
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
@@ -62,6 +63,15 @@ class ShoppingListActivity : AppCompatActivity(),
             }
             R.id.clear_list -> {
                 shoppingListName?.id?.let { mainViewModel.deleteShoppingList(it, false) }
+            }
+            R.id.share_list -> {
+                startActivity(Intent.createChooser(
+                    adapter?.currentList?.let {
+                        shoppingListName?.name?.let { name ->
+                        ShareHelper.shareShoppingList(it, name)
+                    } },
+                    getString(R.string.share_with)
+                ))
             }
         }
         return super.onOptionsItemSelected(item)
@@ -110,7 +120,7 @@ class ShoppingListActivity : AppCompatActivity(),
         val newItem = ShoppingListItemEntity(
                 null,
                 edItem?.text.toString(),
-                null,
+                OrganizerConsts.EMPTY,
                 false,
                 shoppingListName?.id!!,
                 ITEM_TYPE

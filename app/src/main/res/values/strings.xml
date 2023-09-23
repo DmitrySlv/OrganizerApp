@@ -53,4 +53,6 @@
     <string name="name_hint">Название</string>
     <string name="item_info_hint">Описание</string>
     <string name="btn_update_item">Изменить</string>
+    <!-- Shopping List Activity -->
+    <string name="share_with">Поделиться с:</string>
 </resources>
