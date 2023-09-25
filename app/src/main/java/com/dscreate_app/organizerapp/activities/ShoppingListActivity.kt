@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MenuItem.OnActionExpandListener
@@ -17,21 +16,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.adapters.ShoppingListItemAdapter
+import com.dscreate_app.organizerapp.data.entities.LibraryItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ActivityShoppingListBinding
 import com.dscreate_app.organizerapp.utils.OrganizerConsts
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.EMPTY
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.TAG
 import com.dscreate_app.organizerapp.utils.ShareHelper
 import com.dscreate_app.organizerapp.utils.dialogs.EditListItemDialog
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
-class ShoppingListActivity : AppCompatActivity(),
-    ShoppingListItemAdapter.OnClickListener,
-    ShoppingListItemAdapter.EditItemListener
-{
+class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClickListener {
     private val binding by lazy { ActivityShoppingListBinding.inflate(layoutInflater) }
 
     private val mainViewModel: MainViewModel by viewModels {
@@ -134,10 +130,7 @@ class ShoppingListActivity : AppCompatActivity(),
     }
 
     private fun setRcView() = with(binding) {
-        adapter = ShoppingListItemAdapter(
-            this@ShoppingListActivity,
-            this@ShoppingListActivity
-        )
+        adapter = ShoppingListItemAdapter(this@ShoppingListActivity)
         rcView.layoutManager = LinearLayoutManager(this@ShoppingListActivity)
         rcView.adapter = adapter
     }
@@ -152,7 +145,7 @@ class ShoppingListActivity : AppCompatActivity(),
         val newItem = ShoppingListItemEntity(
                 null,
                 edItem?.text.toString(),
-                OrganizerConsts.EMPTY,
+                EMPTY,
                 false,
                 shoppingListName?.id!!,
                 ITEM_TYPE
@@ -165,7 +158,11 @@ class ShoppingListActivity : AppCompatActivity(),
         shoppingListName?.id?.let { id ->
             mainViewModel.getAllShoppingListItems(id).observe(this) {
                 adapter?.submitList(it)
-                isVisibleView(it)
+                if (it.isEmpty()) {
+                    binding.tvEmpty.visibility = View.VISIBLE
+                } else {
+                    binding.tvEmpty.visibility =  View.GONE
+                }
             }
         }
     }
@@ -185,28 +182,45 @@ class ShoppingListActivity : AppCompatActivity(),
                 tempShoppingList.add(shoppingItem)
             }
             adapter?.submitList(tempShoppingList)
-        }
-    }
-
-    private fun isVisibleView(shoppingListItemEntity: List<ShoppingListItemEntity>) {
-        if (shoppingListItemEntity.isEmpty()) {
-            binding.tvEmpty.visibility = View.VISIBLE
+            if (it.isEmpty()) {
+                binding.tvEmpty.visibility = View.VISIBLE
             } else {
-            binding.tvEmpty.visibility =  View.GONE
+                binding.tvEmpty.visibility =  View.GONE
+            }
         }
     }
 
-    override fun onClickItem(shoppingListItem: ShoppingListItemEntity) {
-        mainViewModel.updateShoppingListItem(shoppingListItem)
+    override fun onClickItem(shoppingListItem: ShoppingListItemEntity, state: Int) {
+        when (state) {
+            ShoppingListItemAdapter.EDIT -> { editListItem(shoppingListItem) }
+            ShoppingListItemAdapter.CHECK_BOX -> {
+                mainViewModel.updateShoppingListItem(shoppingListItem)
+            }
+            ShoppingListItemAdapter.EDIT_LIBRARY_ITEM -> { editLibraryItem(shoppingListItem) }
+            ShoppingListItemAdapter.DELETE_LIBRARY_ITEM -> {
+                shoppingListItem.id?.let { mainViewModel.deleteLibraryItem(it) }
+                mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%") // в ручную обновление списка по символу из edItem.
+            }
+        }
     }
 
-    override fun editItem(shoppingListItem: ShoppingListItemEntity) {
+    private fun editListItem(shoppingListItem: ShoppingListItemEntity) {
         EditListItemDialog.showDialog(
             this, shoppingListItem, object : EditListItemDialog.Listener {
             override fun onClick(item: ShoppingListItemEntity) {
                 mainViewModel.updateShoppingListItem(item)
             }
         })
+    }
+
+    private fun editLibraryItem(shoppingListItem: ShoppingListItemEntity) {
+        EditListItemDialog.showDialog(
+            this, shoppingListItem, object : EditListItemDialog.Listener {
+                override fun onClick(item: ShoppingListItemEntity) {
+                    mainViewModel.updateLibraryItem(LibraryItemEntity(item.id, item.name))
+                    mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%") // в ручную обновление списка по символу из edItem.
+                }
+            })
     }
 
     companion object {

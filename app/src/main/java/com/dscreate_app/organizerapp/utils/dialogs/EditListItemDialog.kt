@@ -3,6 +3,7 @@ package com.dscreate_app.organizerapp.utils.dialogs
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.databinding.EditShoppingListItemDialogBinding
@@ -18,6 +19,9 @@ object EditListItemDialog {
         binding.apply {
             edName.setText(item.name)
             edInfo.setText(item.itemInfo)
+            if (item.itemType == LIBRARY_ITEM_TYPE) {
+                edInfo.visibility = View.GONE
+            }
             bUpdate.setOnClickListener {
                 if (edName.text.toString().isNotEmpty()) {
                     val itemInfo = edInfo.text.toString().ifEmpty { OrganizerConsts.EMPTY }
@@ -37,4 +41,6 @@ object EditListItemDialog {
     interface Listener {
         fun onClick(item: ShoppingListItemEntity)
     }
+
+    private const val LIBRARY_ITEM_TYPE = 1
 }

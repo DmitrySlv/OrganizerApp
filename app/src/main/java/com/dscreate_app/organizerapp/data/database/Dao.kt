@@ -35,6 +35,9 @@ interface Dao {
     @Query("DELETE FROM shopping_list_item WHERE listId LIKE :listId")
     suspend fun deleteShoppingListItemsByListId(listId: Int)
 
+    @Query("DELETE FROM library_item WHERE id IS :id")
+    suspend fun deleteLibraryItem(id: Int)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertNote(note: NoteItemEntity)
 
@@ -55,5 +58,8 @@ interface Dao {
 
     @Update
     suspend fun updateShoppingListItem(shoppingListItem: ShoppingListItemEntity)
+
+    @Update
+    suspend fun updateLibraryItem(libraryItem: LibraryItemEntity)
 
 }

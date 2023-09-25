@@ -13,20 +13,19 @@ import com.dscreate_app.organizerapp.databinding.LibraryListItemBinding
 import com.dscreate_app.organizerapp.databinding.ShoppingListItemBinding
 
 class ShoppingListItemAdapter(
-    private val itemClickListener: OnClickListener,
-    private val editItemListener: EditItemListener
+    private val itemClickListener: OnClickListener
 ): ListAdapter<ShoppingListItemEntity, ShoppingListItemAdapter.Holder>(DiffShoppingListNameItem) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         return if (viewType == SHOPPING_LIST_NAME_ITEM) {
             val shoppingItem = LayoutInflater.from(parent.context)
                 .inflate(R.layout.shopping_list_item, parent, false)
-            Holder(shoppingItem, itemClickListener, editItemListener)
+            Holder(shoppingItem, itemClickListener)
 
         } else {
             val libraryItem = LayoutInflater.from(parent.context)
                 .inflate(R.layout.library_list_item, parent, false)
-            Holder(libraryItem, itemClickListener, editItemListener)
+            Holder(libraryItem, itemClickListener)
         }
     }
 
@@ -42,11 +41,7 @@ class ShoppingListItemAdapter(
         return getItem(position).itemType
     }
 
-    class Holder(
-        itemView: View,
-        private val itemClickListener: OnClickListener,
-        private val editItemListener: EditItemListener
-    ) : ViewHolder(itemView) {
+    class Holder(itemView: View, private val itemClickListener: OnClickListener): ViewHolder(itemView) {
 
         fun setItemData(shoppingListItem: ShoppingListItemEntity) {
             val binding = ShoppingListItemBinding.bind(itemView)
@@ -58,30 +53,42 @@ class ShoppingListItemAdapter(
                 checkBox.isChecked = shoppingListItem.itemChecked
                 setPaintFlagAndColor(binding)
             }
-            onClicksItemData(shoppingListItem)
+            onClicksItemData(shoppingListItem, binding)
         }
 
-        private fun onClicksItemData(shoppingListItem: ShoppingListItemEntity) {
-            ShoppingListItemBinding.bind(itemView).apply {
+        private fun onClicksItemData(
+            shoppingListItem: ShoppingListItemEntity, binding: ShoppingListItemBinding
+        ) {
+           binding.apply {
                 checkBox.setOnClickListener {
                     itemClickListener.onClickItem(shoppingListItem.copy(
-                        itemChecked = checkBox.isChecked)
+                        itemChecked = checkBox.isChecked), CHECK_BOX
                     )
                 }
                 ibEdit.setOnClickListener {
-                    editItemListener.editItem(shoppingListItem)
+                    itemClickListener.onClickItem(shoppingListItem, EDIT)
                 }
             }
         }
 
         fun setLibraryData(shoppingListItem: ShoppingListItemEntity) {
-            LibraryListItemBinding.bind(itemView).apply {
+          val binding=  LibraryListItemBinding.bind(itemView).apply {
                 tvName.text = shoppingListItem.name
             }
-            onClicksLibraryData(shoppingListItem)
+            onClicksLibraryData(shoppingListItem, binding)
         }
 
-        private fun onClicksLibraryData(shoppingListItem: ShoppingListItemEntity) {
+        private fun onClicksLibraryData(
+            shoppingListItem: ShoppingListItemEntity, binding: LibraryListItemBinding
+        ) {
+            binding.apply {
+                ibEdit.setOnClickListener {
+                    itemClickListener.onClickItem(shoppingListItem, EDIT_LIBRARY_ITEM)
+                }
+                ibDelete.setOnClickListener {
+                    itemClickListener.onClickItem(shoppingListItem, DELETE_LIBRARY_ITEM)
+                }
+            }
         }
 
         private fun infoVisibility(shoppingListItem: ShoppingListItemEntity): Int {
@@ -111,14 +118,15 @@ class ShoppingListItemAdapter(
     }
 
     interface OnClickListener {
-        fun onClickItem(shoppingListItem: ShoppingListItemEntity)
-    }
-
-    interface EditItemListener {
-        fun editItem(shoppingListItem: ShoppingListItemEntity)
+        fun onClickItem(shoppingListItem: ShoppingListItemEntity, state: Int)
     }
 
     companion object {
-        private const val SHOPPING_LIST_NAME_ITEM = 0
+        const val SHOPPING_LIST_NAME_ITEM = 0
+        const val EDIT_LIBRARY_ITEM = 1
+        const val DELETE_LIBRARY_ITEM = 2
+        const val EDIT = 3
+        const val CHECK_BOX = 4
+
     }
 }

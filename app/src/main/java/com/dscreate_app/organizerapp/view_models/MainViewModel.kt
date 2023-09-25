@@ -58,6 +58,10 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
         dao.updateShoppingListName(shoppingListName)
     }
 
+    fun updateLibraryItem(libraryItem: LibraryItemEntity) = viewModelScope.launch {
+        dao.updateLibraryItem(libraryItem)
+    }
+
     fun deleteNote(id: Int) = viewModelScope.launch {
         dao.deleteNote(id)
     }
@@ -68,6 +72,10 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
         } else {
             dao.deleteShoppingListItemsByListId(id)
         }
+    }
+
+    fun deleteLibraryItem(id: Int) = viewModelScope.launch {
+        dao.deleteLibraryItem(id)
     }
 
    private suspend fun isLibraryItemExists(name: String): Boolean {
