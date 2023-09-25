@@ -21,6 +21,7 @@ import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ActivityShoppingListBinding
 import com.dscreate_app.organizerapp.utils.OrganizerConsts
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.EMPTY
 import com.dscreate_app.organizerapp.utils.OrganizerConsts.TAG
 import com.dscreate_app.organizerapp.utils.ShareHelper
 import com.dscreate_app.organizerapp.utils.dialogs.EditListItemDialog
@@ -90,6 +91,12 @@ class ShoppingListActivity : AppCompatActivity(),
             override fun onMenuItemActionExpand(item: MenuItem): Boolean {
                 saveItem.isVisible = true
                 edItem?.addTextChangedListener(textWatcher)
+                libraryItemObserver()
+                shoppingListName?.id?.let {
+                    mainViewModel.getAllShoppingListItems(it).removeObservers(
+                        this@ShoppingListActivity)
+                }
+                mainViewModel.getAllLibraryItems("%%") // Показывает все элементы
                 return true
             }
 
@@ -97,6 +104,9 @@ class ShoppingListActivity : AppCompatActivity(),
                 saveItem.isVisible = false
                 edItem?.removeTextChangedListener(textWatcher)
                 invalidateOptionsMenu()
+                mainViewModel.libraryItems.removeObservers(this@ShoppingListActivity)
+                edItem?.setText(EMPTY)
+                listItemObserver()
                 return true
             }
         }
@@ -108,7 +118,7 @@ class ShoppingListActivity : AppCompatActivity(),
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.d(TAG, "Изменение текста: $s")
+                mainViewModel.getAllLibraryItems("%$s%") //показывает результат по 1 введённому символу
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -160,6 +170,24 @@ class ShoppingListActivity : AppCompatActivity(),
         }
     }
 
+    private fun libraryItemObserver() {
+        mainViewModel.libraryItems.observe(this) {
+            val tempShoppingList = mutableListOf<ShoppingListItemEntity>()
+            it.forEach { item ->
+                val shoppingItem = ShoppingListItemEntity(
+                    item.id,
+                    item.name,
+                    EMPTY,
+                    false,
+                    LIST_ID,
+                    ITEM_TYPE_LIBRARY
+                )
+                tempShoppingList.add(shoppingItem)
+            }
+            adapter?.submitList(tempShoppingList)
+        }
+    }
+
     private fun isVisibleView(shoppingListItemEntity: List<ShoppingListItemEntity>) {
         if (shoppingListItemEntity.isEmpty()) {
             binding.tvEmpty.visibility = View.VISIBLE
@@ -183,5 +211,7 @@ class ShoppingListActivity : AppCompatActivity(),
 
     companion object {
         private const val ITEM_TYPE = 0
+        private const val ITEM_TYPE_LIBRARY = 1
+        private const val LIST_ID = 0
     }
 }

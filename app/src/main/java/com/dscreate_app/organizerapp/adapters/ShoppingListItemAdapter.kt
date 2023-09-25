@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
+import com.dscreate_app.organizerapp.databinding.LibraryListItemBinding
 import com.dscreate_app.organizerapp.databinding.ShoppingListItemBinding
 
 class ShoppingListItemAdapter(
@@ -74,6 +75,10 @@ class ShoppingListItemAdapter(
         }
 
         fun setLibraryData(shoppingListItem: ShoppingListItemEntity) {
+            LibraryListItemBinding.bind(itemView).apply {
+                tvName.text = shoppingListItem.name
+            }
+            onClicksLibraryData(shoppingListItem)
         }
 
         private fun onClicksLibraryData(shoppingListItem: ShoppingListItemEntity) {

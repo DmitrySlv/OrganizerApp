@@ -1,6 +1,7 @@
 package com.dscreate_app.organizerapp.view_models
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -20,8 +21,14 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
     val allShoppingListNames: LiveData<List<ShoppingListNameEntity>> =
         dao.getAllShoppingListNames().asLiveData()
 
+    val libraryItems = MutableLiveData<List<LibraryItemEntity>>()
+
     fun getAllShoppingListItems(listId: Int): LiveData<List<ShoppingListItemEntity>> {
         return dao.getAllShoppingListItems(listId).asLiveData()
+    }
+
+    fun getAllLibraryItems(name: String) = viewModelScope.launch {
+       libraryItems.postValue(dao.getAllLibraryItems(name))
     }
 
     fun insertNote(note: NoteItemEntity) = viewModelScope.launch {
