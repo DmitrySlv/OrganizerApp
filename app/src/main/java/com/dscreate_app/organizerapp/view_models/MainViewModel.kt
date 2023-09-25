@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.dscreate_app.organizerapp.data.database.OrganizerDb
+import com.dscreate_app.organizerapp.data.entities.LibraryItemEntity
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
@@ -33,6 +34,9 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
 
     fun insertShoppingListItem(shoppingListItem: ShoppingListItemEntity) = viewModelScope.launch {
         dao.insertShoppingListItem(shoppingListItem)
+        if (!isLibraryItemExists(shoppingListItem.name)) {
+            dao.insertLibraryItem(LibraryItemEntity(null, shoppingListItem.name))
+        }
     }
 
     fun updateNote(note: NoteItemEntity) = viewModelScope.launch {
@@ -57,5 +61,9 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
         } else {
             dao.deleteShoppingListItemsByListId(id)
         }
+    }
+
+   private suspend fun isLibraryItemExists(name: String): Boolean {
+        return dao.getAllLibraryItems(name).isNotEmpty()
     }
 }

@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.dscreate_app.organizerapp.data.entities.LibraryItemEntity
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
@@ -18,6 +19,9 @@ interface Dao {
 
     @Query("SELECT * FROM shopping_list_item WHERE listId LIKE :listId")
     fun getAllShoppingListItems(listId: Int): Flow<List<ShoppingListItemEntity>>
+
+    @Query("SELECT * FROM library_item WHERE name LIKE :name")
+    suspend fun getAllLibraryItems(name: String): List<LibraryItemEntity>
 
     @Query("SELECT * FROM note_item")
     fun getAllNotes(): Flow<List<NoteItemEntity>>
@@ -39,6 +43,9 @@ interface Dao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertShoppingListItem(shoppingListItem: ShoppingListItemEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertLibraryItem(libraryItem: LibraryItemEntity)
 
     @Update
     suspend fun updateNote(note: NoteItemEntity)
