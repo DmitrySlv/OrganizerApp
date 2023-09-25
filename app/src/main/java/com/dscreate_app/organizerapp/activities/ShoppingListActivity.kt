@@ -4,6 +4,9 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.MenuItem.OnActionExpandListener
@@ -18,6 +21,7 @@ import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ActivityShoppingListBinding
 import com.dscreate_app.organizerapp.utils.OrganizerConsts
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.TAG
 import com.dscreate_app.organizerapp.utils.ShareHelper
 import com.dscreate_app.organizerapp.utils.dialogs.EditListItemDialog
 import com.dscreate_app.organizerapp.view_models.MainViewModel
@@ -36,6 +40,7 @@ class ShoppingListActivity : AppCompatActivity(),
     private lateinit var saveItem: MenuItem
     private var edItem: EditText? = null
     private var adapter: ShoppingListItemAdapter? = null
+    private lateinit var textWatcher: TextWatcher
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +56,7 @@ class ShoppingListActivity : AppCompatActivity(),
         edItem = newItem.actionView?.findViewById(R.id.edNewShoppingItem) as EditText
         newItem.setOnActionExpandListener(expandActionView())
         saveItem.isVisible = false
+        textWatcher = textWatcher()
         return true
     }
 
@@ -83,13 +89,29 @@ class ShoppingListActivity : AppCompatActivity(),
 
             override fun onMenuItemActionExpand(item: MenuItem): Boolean {
                 saveItem.isVisible = true
+                edItem?.addTextChangedListener(textWatcher)
                 return true
             }
 
             override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
                 saveItem.isVisible = false
+                edItem?.removeTextChangedListener(textWatcher)
                 invalidateOptionsMenu()
                 return true
+            }
+        }
+    }
+
+    private fun textWatcher(): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.d(TAG, "Изменение текста: $s")
+            }
+
+            override fun afterTextChanged(s: Editable?) {
             }
         }
     }

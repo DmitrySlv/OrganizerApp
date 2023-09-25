@@ -7,7 +7,7 @@ object ShareHelper {
 
     fun shareShoppingList(shoppingList: List<ShoppingListItemEntity>, listName: String): Intent {
         val intent = Intent(Intent.ACTION_SEND)
-        intent.type = TYPE
+        intent.type = TYPE_TEXT_PLANE
         intent.apply {
             putExtra(Intent.EXTRA_TEXT, makeShareText(shoppingList, listName))
         }
@@ -26,5 +26,5 @@ object ShareHelper {
         return sBuilder.toString()
     }
 
-    private const val TYPE = "text/plane"
+    private const val TYPE_TEXT_PLANE = "text/plane"
 }
