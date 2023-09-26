@@ -55,4 +55,10 @@
     <string name="btn_update_item">Изменить</string>
     <!-- Shopping List Activity -->
     <string name="share_with">Поделиться с:</string>
+    <!-- settings_preference -->
+    <string name="general">Общие настройки</string>
+    <string name="choose_note_style">Выбрать стиль заметок</string>
+    <string name="choose_time_format">Выбрать формат времени</string>
+    <string name="remove_ads">Убрать рекламу</string>
+    <string name="remove_ads_summary">Удалить всю рекламу из приложения</string>
 </resources>

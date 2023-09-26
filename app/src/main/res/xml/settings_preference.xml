@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/general">
+
+        <ListPreference
+            android:title="@string/choose_note_style"
+            android:key="note_style_key"
+            android:defaultValue="1"
+            android:icon="@drawable/baseline_style"
+            app:entries="@array/note_style_array"
+            app:entryValues="@array/note_style_values" />
+        <ListPreference
+            android:key="time_format_key"
+            android:defaultValue="1"
+            android:icon="@drawable/baseline_time_format"
+            android:title="@string/choose_time_format"
+            app:entries="@array/time_format_array"
+            app:entryValues="@array/time_format_values" />
+        <Preference
+            android:title="@string/remove_ads"
+            android:summary="@string/remove_ads_summary"
+            android:icon="@drawable/baseline_remove_ads"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>
