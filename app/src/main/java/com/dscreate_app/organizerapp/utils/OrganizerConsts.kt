@@ -9,4 +9,9 @@ object OrganizerConsts {
     const val EMPTY = ""
     const val NEW = "new"
     const val UPDATE = "update"
+    const val EDIT_LIBRARY_ITEM = 1
+    const val DELETE_LIBRARY_ITEM = 2
+    const val EDIT = 3
+    const val CHECK_BOX = 4
+    const val ADD = 5
 }

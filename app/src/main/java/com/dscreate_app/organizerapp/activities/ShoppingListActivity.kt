@@ -59,7 +59,7 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
-            R.id.save_item -> { addNewShoppingItem() }
+            R.id.save_item -> { addNewShoppingItem(edItem?.text.toString()) }
             R.id.delete_list -> {
                 shoppingListName?.id?.let { mainViewModel.deleteShoppingList(it, true) }
                 finish()
@@ -140,11 +140,11 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
         else -> @Suppress("DEPRECATION") getParcelableExtra(key) as? T
     }
 
-    private fun addNewShoppingItem() {
-        if (edItem?.text.toString().isEmpty()) return
+    private fun addNewShoppingItem(name: String) {
+        if (name.isEmpty()) return
         val newItem = ShoppingListItemEntity(
                 null,
-                edItem?.text.toString(),
+                name,
                 EMPTY,
                 false,
                 shoppingListName?.id!!,
@@ -192,15 +192,16 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
 
     override fun onClickItem(shoppingListItem: ShoppingListItemEntity, state: Int) {
         when (state) {
-            ShoppingListItemAdapter.EDIT -> { editListItem(shoppingListItem) }
-            ShoppingListItemAdapter.CHECK_BOX -> {
+            OrganizerConsts.EDIT -> { editListItem(shoppingListItem) }
+            OrganizerConsts.CHECK_BOX -> {
                 mainViewModel.updateShoppingListItem(shoppingListItem)
             }
-            ShoppingListItemAdapter.EDIT_LIBRARY_ITEM -> { editLibraryItem(shoppingListItem) }
-            ShoppingListItemAdapter.DELETE_LIBRARY_ITEM -> {
+            OrganizerConsts.EDIT_LIBRARY_ITEM -> { editLibraryItem(shoppingListItem) }
+            OrganizerConsts.DELETE_LIBRARY_ITEM -> {
                 shoppingListItem.id?.let { mainViewModel.deleteLibraryItem(it) }
-                mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%") // в ручную обновление списка по символу из edItem.
+                mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%") // вручную обновление списка по символу из edItem.
             }
+            OrganizerConsts.ADD -> { addNewShoppingItem(shoppingListItem.name) }
         }
     }
 
@@ -218,7 +219,7 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
             this, shoppingListItem, object : EditListItemDialog.Listener {
                 override fun onClick(item: ShoppingListItemEntity) {
                     mainViewModel.updateLibraryItem(LibraryItemEntity(item.id, item.name))
-                    mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%") // в ручную обновление списка по символу из edItem.
+                    mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%") // вручную обновление списка по символу из edItem.
                 }
             })
     }

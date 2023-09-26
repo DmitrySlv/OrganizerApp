@@ -11,6 +11,11 @@ import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.databinding.LibraryListItemBinding
 import com.dscreate_app.organizerapp.databinding.ShoppingListItemBinding
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.ADD
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.CHECK_BOX
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.DELETE_LIBRARY_ITEM
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.EDIT
+import com.dscreate_app.organizerapp.utils.OrganizerConsts.EDIT_LIBRARY_ITEM
 
 class ShoppingListItemAdapter(
     private val itemClickListener: OnClickListener
@@ -88,6 +93,9 @@ class ShoppingListItemAdapter(
                 ibDelete.setOnClickListener {
                     itemClickListener.onClickItem(shoppingListItem, DELETE_LIBRARY_ITEM)
                 }
+                itemView.setOnClickListener {
+                    itemClickListener.onClickItem(shoppingListItem, ADD)
+                }
             }
         }
 
@@ -123,10 +131,5 @@ class ShoppingListItemAdapter(
 
     companion object {
         const val SHOPPING_LIST_NAME_ITEM = 0
-        const val EDIT_LIBRARY_ITEM = 1
-        const val DELETE_LIBRARY_ITEM = 2
-        const val EDIT = 3
-        const val CHECK_BOX = 4
-
     }
 }
