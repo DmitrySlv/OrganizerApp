@@ -19,4 +19,32 @@
         <item>hh:mm:ss - dd/MM/yyyy</item>
         <item>hh:mm:ss - yyyy/MM/dd</item>
     </string-array>
+
+    <string-array name="theme_array">
+        <item>Голубая тема</item>
+        <item>Зелёная тема</item>
+        <item>Жёлтая тема</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>Голубая</item>
+        <item>Зелёная</item>
+        <item>Жёлтая</item>
+    </string-array>
+
+    <string-array name="text_size_array">
+        <item>12 sp</item>
+        <item>14 sp</item>
+        <item>16 sp</item>
+        <item>18 sp</item>
+        <item>20 sp</item>
+    </string-array>
+
+    <string-array name="text_size_values">
+        <item>12</item>
+        <item>14</item>
+        <item>16</item>
+        <item>18</item>
+        <item>20</item>
+    </string-array>
 </resources>

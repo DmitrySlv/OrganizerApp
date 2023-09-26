@@ -57,8 +57,13 @@
     <string name="share_with">Поделиться с:</string>
     <!-- settings_preference -->
     <string name="general">Общие настройки</string>
-    <string name="choose_note_style">Выбрать стиль заметок</string>
-    <string name="choose_time_format">Выбрать формат времени</string>
+    <string name="choose_note_style">Выбор стиля заметок</string>
+    <string name="choose_time_format">Выбор формата времени</string>
     <string name="remove_ads">Убрать рекламу</string>
-    <string name="remove_ads_summary">Удалить всю рекламу из приложения</string>
+    <string name="remove_ads_summary">Убрать всю рекламу из приложения</string>
+    <string name="choose_theme_settings">Настройки темы</string>
+    <string name="choose_theme">Выбор темы</string>
+    <string name="note_text_settings">Настройки текста заметок</string>
+    <string name="title_text_size">Размер заголовка</string>
+    <string name="content_text_size">Размер контента</string>
 </resources>

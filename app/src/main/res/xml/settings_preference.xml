@@ -25,4 +25,36 @@
             android:icon="@drawable/baseline_remove_ads"
             />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/choose_theme_settings">
+
+        <ListPreference
+            android:key="theme_key"
+            android:defaultValue="1"
+            android:title="@string/choose_theme"
+            android:icon="@drawable/baseline_themes"
+            app:entries="@array/theme_array"
+            app:entryValues="@array/theme_values" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/note_text_settings">
+
+        <ListPreference
+            android:key="title_size_key"
+            android:defaultValue="1"
+            android:icon="@drawable/baseline_text"
+            android:title="@string/title_text_size"
+            app:entries="@array/text_size_array"
+            app:entryValues="@array/text_size_values" />
+
+        <ListPreference
+            android:key="content_size_key"
+            android:defaultValue="1"
+            android:icon="@drawable/baseline_text_content"
+            android:title="@string/content_text_size"
+            app:entries="@array/text_size_array"
+            app:entryValues="@array/text_size_values" />
+    </PreferenceCategory>
 </PreferenceScreen>
