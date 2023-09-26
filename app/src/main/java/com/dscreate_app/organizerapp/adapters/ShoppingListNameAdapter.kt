@@ -1,8 +1,11 @@
 package com.dscreate_app.organizerapp.adapters
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.dscreate_app.organizerapp.R
@@ -34,8 +37,18 @@ class ShoppingListNameAdapter(
         private val binding = ShoppingListNameItemBinding.bind(itemView)
 
         fun setData(shoppingListNames: ShoppingListNameEntity) = with(binding) {
+            val counterText = "${shoppingListNames.checkedItemsCounter}/${shoppingListNames.allItemsCounter}"
+            val colorState = ColorStateList.valueOf(
+                getProgressColorState(shoppingListNames, root.context)
+            )
+
             tvListName.text = shoppingListNames.name
             tvTime.text = shoppingListNames.time
+            tvCounter.text = counterText
+            pBar.max = shoppingListNames.allItemsCounter
+            pBar.progress = shoppingListNames.checkedItemsCounter
+            pBar.progressTintList = colorState
+            counterCard.backgroundTintList = colorState
             onClicksItem(shoppingListNames)
         }
 
@@ -48,6 +61,14 @@ class ShoppingListNameAdapter(
             }
             itemView.setOnClickListener {
                 itemClickListener.onClickItem(shoppingListNames)
+            }
+        }
+
+        private fun getProgressColorState(item: ShoppingListNameEntity, context: Context): Int {
+            return if (item.checkedItemsCounter == item.allItemsCounter) {
+                ContextCompat.getColor(context, R.color.green_main)
+            } else {
+                ContextCompat.getColor(context, R.color.red)
             }
         }
     }

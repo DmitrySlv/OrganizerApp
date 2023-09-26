@@ -224,6 +224,27 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
             })
     }
 
+    override fun onBackPressed() {
+        saveItemCount()
+        super.onBackPressed()
+    }
+
+    private fun saveItemCount() {
+        var checkedItemCounter = 0
+        adapter?.currentList?.forEach {
+            if (it.itemChecked) {
+                checkedItemCounter++
+            }
+        }
+        val tempShoppingListNameItem = adapter?.itemCount?.let {
+            shoppingListName?.copy(
+                allItemsCounter = it,
+                checkedItemsCounter = checkedItemCounter
+            )
+        }
+        tempShoppingListNameItem?.let { mainViewModel.updateShoppingListName(it) }
+    }
+
     companion object {
         private const val ITEM_TYPE = 0
         private const val ITEM_TYPE_LIBRARY = 1
