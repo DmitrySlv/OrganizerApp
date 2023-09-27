@@ -3,6 +3,7 @@ package com.dscreate_app.organizerapp.activities
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
@@ -16,9 +17,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import androidx.appcompat.app.ActionBar
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.ActivityNoteBinding
@@ -35,6 +37,7 @@ class NotesActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityNoteBinding.inflate(layoutInflater) }
     private var note: NoteItemEntity? = null
+    private var sharedPref: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +45,7 @@ class NotesActivity : AppCompatActivity() {
         actionBarSettings()
         getNote()
         init()
+        setTextSize()
         onClickColorPicker()
         actionMenuCallback()
     }
@@ -103,6 +107,7 @@ class NotesActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun init() = with(binding) {
         colorPicker.setOnTouchListener(TouchListenerColor)
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this@NotesActivity)
     }
 
     private fun setBoldText() = with(binding) {
@@ -235,5 +240,16 @@ class NotesActivity : AppCompatActivity() {
             }
         })
         binding.colorPicker.startAnimation(closeAnim)
+    }
+
+    private fun EditText.textSize(size: String?) {
+        if (size != null) {
+            this.textSize = size.toFloat()
+        }
+    }
+
+    private fun setTextSize() = with(binding) {
+        edTitle.textSize(sharedPref?.getString("title_size_key", "16"))
+        edDescription.textSize(sharedPref?.getString("content_size_key", "14"))
     }
 }
