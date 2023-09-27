@@ -41,6 +41,8 @@ class NotesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this@NotesActivity)
+        setTheme(getSelectedTheme())
         setContentView(binding.root)
         actionBarSettings()
         getNote()
@@ -107,7 +109,6 @@ class NotesActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     private fun init() = with(binding) {
         colorPicker.setOnTouchListener(TouchListenerColor)
-        sharedPref = PreferenceManager.getDefaultSharedPreferences(this@NotesActivity)
     }
 
     private fun setBoldText() = with(binding) {
@@ -251,5 +252,15 @@ class NotesActivity : AppCompatActivity() {
     private fun setTextSize() = with(binding) {
         edTitle.textSize(sharedPref?.getString("title_size_key", "16"))
         edDescription.textSize(sharedPref?.getString("content_size_key", "14"))
+    }
+
+    private fun getSelectedTheme(): Int {
+        return if (sharedPref?.getString("theme_key", "Blue") == "Blue") {
+            R.style.Theme_NoteActivityBlue
+        } else if (sharedPref?.getString("theme_key", "Green") == "Green") {
+            R.style.Theme_NoteActivityGreen
+        } else {
+            R.style.Theme_NoteActivityYellow
+        }
     }
 }

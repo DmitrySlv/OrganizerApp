@@ -33,7 +33,7 @@
         <ListPreference
             app:useSimpleSummaryProvider="true"
             android:key="theme_key"
-            android:defaultValue="1"
+            android:defaultValue="@string/def_theme"
             android:title="@string/choose_theme"
             android:icon="@drawable/baseline_themes"
             app:entries="@array/theme_array"

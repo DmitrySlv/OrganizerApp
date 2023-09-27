@@ -1,8 +1,10 @@
 package com.dscreate_app.organizerapp.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.databinding.ActivityMainBinding
 import com.dscreate_app.organizerapp.fragments.NotesFragment
@@ -14,9 +16,12 @@ class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var currentMenuItemId = R.id.notes
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        setTheme(getSelectedTheme())
         setContentView(binding.root)
         setBottomNavListener()
         FragmentManager.setFragment(NotesFragment.newInstance(), this)
@@ -50,6 +55,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             true
+        }
+    }
+
+    private fun getSelectedTheme(): Int {
+        return if (sharedPref.getString("theme_key", "Blue") == "Blue") {
+            R.style.Base_Theme_OrganizerAppBlue
+        } else if (sharedPref.getString("theme_key", "Green") == "Green") {
+            R.style.Base_Theme_OrganizerAppGreen
+        } else {
+            R.style.Base_Theme_OrganizerAppYellow
         }
     }
 }

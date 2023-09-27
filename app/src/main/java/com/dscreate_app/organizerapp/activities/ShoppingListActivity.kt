@@ -1,6 +1,7 @@
 package com.dscreate_app.organizerapp.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
@@ -13,6 +14,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.adapters.ShoppingListItemAdapter
@@ -38,9 +40,12 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
     private var edItem: EditText? = null
     private var adapter: ShoppingListItemAdapter? = null
     private lateinit var textWatcher: TextWatcher
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        setTheme(getSelectedTheme())
         setContentView(binding.root)
         init()
         listItemObserver()
@@ -243,6 +248,16 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
             )
         }
         tempShoppingListNameItem?.let { mainViewModel.updateShoppingListName(it) }
+    }
+
+    private fun getSelectedTheme(): Int {
+        return if (sharedPref?.getString("theme_key", "Blue") == "Blue") {
+            R.style.Base_Theme_OrganizerAppBlue
+        } else if (sharedPref?.getString("theme_key", "Green") == "Green") {
+            R.style.Base_Theme_OrganizerAppGreen
+        } else {
+            R.style.Base_Theme_OrganizerAppYellow
+        }
     }
 
     companion object {

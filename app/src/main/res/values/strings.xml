@@ -71,6 +71,7 @@
     <string name="def_title_text_size">18</string>
     <string name="def_time_format">hh:mm:ss - dd/MM/yyyy</string>
     <string name="def_note_style">Linear</string>
+    <string name="def_theme">Blue</string>
     <!-- Settings Activity -->
     <string name="action_bar_title">Настройки приложения</string>
 </resources>

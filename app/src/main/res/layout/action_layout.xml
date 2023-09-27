@@ -11,5 +11,6 @@
         android:ems="10"
         android:hint="@string/new_item_hint"
         android:inputType="text"
+        android:theme="@style/Theme.EditBlue"
         android:textColor="@color/white" />
 </LinearLayout>

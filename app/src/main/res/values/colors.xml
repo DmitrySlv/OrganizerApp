@@ -28,4 +28,6 @@
     <color name="green_light">#32B337</color>
     <color name="green_dark">#307C33</color>
     <color name="green_light_bg">#98CA9A</color>
+    <color name="yellow_light">#F1E159</color>
+    <color name="yellow_dark">#CAB500</color>
 </resources>
