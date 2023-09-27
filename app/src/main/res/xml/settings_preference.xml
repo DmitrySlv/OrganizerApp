@@ -16,7 +16,7 @@
         <ListPreference
             app:useSimpleSummaryProvider="true"
             android:key="time_format_key"
-            android:defaultValue="1"
+            android:defaultValue="@string/def_time_format"
             android:icon="@drawable/baseline_time_format"
             android:title="@string/choose_time_format"
             app:entries="@array/time_format_array"
@@ -24,8 +24,7 @@
         <Preference
             android:title="@string/remove_ads"
             android:summary="@string/remove_ads_summary"
-            android:icon="@drawable/baseline_remove_ads"
-            />
+            android:icon="@drawable/baseline_remove_ads" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -47,7 +46,7 @@
         <ListPreference
             app:useSimpleSummaryProvider="true"
             android:key="title_size_key"
-            android:defaultValue="1"
+            android:defaultValue="@string/def_title_text_size"
             android:icon="@drawable/baseline_text"
             android:title="@string/title_text_size"
             app:entries="@array/text_size_array"
@@ -56,7 +55,7 @@
         <ListPreference
             app:useSimpleSummaryProvider="true"
             android:key="content_size_key"
-            android:defaultValue="1"
+            android:defaultValue="@string/def_content_text_size"
             android:icon="@drawable/baseline_text_content"
             android:title="@string/content_text_size"
             app:entries="@array/text_size_array"

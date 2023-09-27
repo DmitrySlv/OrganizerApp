@@ -20,8 +20,8 @@ import com.dscreate_app.organizerapp.data.entities.LibraryItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.ActivityShoppingListBinding
-import com.dscreate_app.organizerapp.utils.OrganizerConsts
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.EMPTY
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EMPTY
 import com.dscreate_app.organizerapp.utils.ShareHelper
 import com.dscreate_app.organizerapp.utils.dialogs.EditListItemDialog
 import com.dscreate_app.organizerapp.view_models.MainViewModel
@@ -126,7 +126,7 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
         setRcView()
         title = getString(R.string.shopping_list)
         shoppingListName = intent.parcelable<ShoppingListNameEntity>(
-            OrganizerConsts.SHOPPING_LIST_NAME) as ShoppingListNameEntity
+            OrganizerAppConsts.SHOPPING_LIST_NAME) as ShoppingListNameEntity
     }
 
     private fun setRcView() = with(binding) {
@@ -192,16 +192,16 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
 
     override fun onClickItem(shoppingListItem: ShoppingListItemEntity, state: Int) {
         when (state) {
-            OrganizerConsts.EDIT -> { editListItem(shoppingListItem) }
-            OrganizerConsts.CHECK_BOX -> {
+            OrganizerAppConsts.EDIT -> { editListItem(shoppingListItem) }
+            OrganizerAppConsts.CHECK_BOX -> {
                 mainViewModel.updateShoppingListItem(shoppingListItem)
             }
-            OrganizerConsts.EDIT_LIBRARY_ITEM -> { editLibraryItem(shoppingListItem) }
-            OrganizerConsts.DELETE_LIBRARY_ITEM -> {
+            OrganizerAppConsts.EDIT_LIBRARY_ITEM -> { editLibraryItem(shoppingListItem) }
+            OrganizerAppConsts.DELETE_LIBRARY_ITEM -> {
                 shoppingListItem.id?.let { mainViewModel.deleteLibraryItem(it) }
                 mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%") // вручную обновление списка по символу из edItem.
             }
-            OrganizerConsts.ADD -> { addNewShoppingItem(shoppingListItem.name) }
+            OrganizerAppConsts.ADD -> { addNewShoppingItem(shoppingListItem.name) }
         }
     }
 

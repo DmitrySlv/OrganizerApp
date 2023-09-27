@@ -2,6 +2,7 @@ package com.dscreate_app.organizerapp.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.activities.MainApp
@@ -18,9 +20,9 @@ import com.dscreate_app.organizerapp.activities.NotesActivity
 import com.dscreate_app.organizerapp.adapters.NotesAdapter
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.FragmentNotesBinding
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.EDIT_STATE_KEY
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.NEW_NOTE_KEY
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.UPDATE
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EDIT_STATE_KEY
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.NEW_NOTE_KEY
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.UPDATE
 import com.dscreate_app.organizerapp.view_models.MainViewModel
 import com.dscreate_app.organizerapp.view_models.MainViewModelFactory
 
@@ -35,6 +37,7 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
     }
     private lateinit var editLauncher: ActivityResultLauncher<Intent>
     private lateinit var adapter: NotesAdapter
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,8 +60,11 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
     }
 
     private fun init() = with(binding) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         activity?.title = getString(R.string.notes)
-        adapter = NotesAdapter(this@NotesFragment, this@NotesFragment)
+        adapter = NotesAdapter(
+            this@NotesFragment, this@NotesFragment, sharedPreferences
+        )
         rcView.layoutManager = LinearLayoutManager(requireContext())
         rcView.adapter = adapter
     }

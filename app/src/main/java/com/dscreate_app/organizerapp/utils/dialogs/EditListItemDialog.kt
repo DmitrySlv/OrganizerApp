@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.databinding.EditShoppingListItemDialogBinding
-import com.dscreate_app.organizerapp.utils.OrganizerConsts
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts
 
 object EditListItemDialog {
 
@@ -24,7 +24,7 @@ object EditListItemDialog {
             }
             bUpdate.setOnClickListener {
                 if (edName.text.toString().isNotEmpty()) {
-                    val itemInfo = edInfo.text.toString().ifEmpty { OrganizerConsts.EMPTY }
+                    val itemInfo = edInfo.text.toString().ifEmpty { OrganizerAppConsts.EMPTY }
                     listener.onClick(item.copy(
                         name = edName.text.toString(),
                         itemInfo = itemInfo

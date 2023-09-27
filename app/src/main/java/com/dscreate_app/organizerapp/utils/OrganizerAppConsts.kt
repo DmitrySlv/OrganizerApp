@@ -1,6 +1,6 @@
 package com.dscreate_app.organizerapp.utils
 
-object OrganizerConsts {
+object OrganizerAppConsts {
 
     const val TAG = "MyLog"
     const val NEW_NOTE_KEY = "new_note_key"

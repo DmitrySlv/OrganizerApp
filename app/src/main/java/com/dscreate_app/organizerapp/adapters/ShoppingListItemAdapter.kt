@@ -11,11 +11,11 @@ import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.databinding.LibraryListItemBinding
 import com.dscreate_app.organizerapp.databinding.ShoppingListItemBinding
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.ADD
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.CHECK_BOX
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.DELETE_LIBRARY_ITEM
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.EDIT
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.EDIT_LIBRARY_ITEM
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.ADD
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.CHECK_BOX
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.DELETE_LIBRARY_ITEM
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EDIT
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EDIT_LIBRARY_ITEM
 
 class ShoppingListItemAdapter(
     private val itemClickListener: OnClickListener

@@ -13,7 +13,7 @@ import com.dscreate_app.organizerapp.activities.ShoppingListActivity
 import com.dscreate_app.organizerapp.adapters.ShoppingListNameAdapter
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 import com.dscreate_app.organizerapp.databinding.FragmentShopListNamesBinding
-import com.dscreate_app.organizerapp.utils.OrganizerConsts
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts
 import com.dscreate_app.organizerapp.utils.TimeManager
 import com.dscreate_app.organizerapp.utils.dialogs.DeleteListDialog
 import com.dscreate_app.organizerapp.utils.dialogs.NewListDialog
@@ -94,7 +94,7 @@ class ShoppingListNameFragment : BaseFragment(),
                 )
                 mainViewModel.insertShoppingListName(shoppingListName)
             }
-        }, OrganizerConsts.EMPTY)
+        }, OrganizerAppConsts.EMPTY)
     }
 
     override fun deleteItem(id: Int) {
@@ -115,7 +115,7 @@ class ShoppingListNameFragment : BaseFragment(),
 
     override fun onClickItem(shoppingListName: ShoppingListNameEntity) {
         val intent = Intent(requireActivity(), ShoppingListActivity::class.java).apply {
-            putExtra(OrganizerConsts.SHOPPING_LIST_NAME, shoppingListName)
+            putExtra(OrganizerAppConsts.SHOPPING_LIST_NAME, shoppingListName)
         }
         startActivity(intent)
     }

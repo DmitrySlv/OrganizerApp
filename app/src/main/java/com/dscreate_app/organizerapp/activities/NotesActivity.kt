@@ -25,11 +25,11 @@ import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.databinding.ActivityNoteBinding
 import com.dscreate_app.organizerapp.utils.HtmlManager
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.EDIT_STATE_KEY
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.EMPTY
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.NEW
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.NEW_NOTE_KEY
-import com.dscreate_app.organizerapp.utils.OrganizerConsts.UPDATE
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EDIT_STATE_KEY
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EMPTY
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.NEW
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.NEW_NOTE_KEY
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.UPDATE
 import com.dscreate_app.organizerapp.utils.TimeManager
 import com.dscreate_app.organizerapp.utils.TouchListenerColor
 
