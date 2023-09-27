@@ -66,4 +66,6 @@
     <string name="note_text_settings">Настройки текста заметок</string>
     <string name="title_text_size">Размер заголовка</string>
     <string name="content_text_size">Размер контента</string>
+    <!-- Settings Activity -->
+    <string name="action_bar_title">Настройки приложения</string>
 </resources>

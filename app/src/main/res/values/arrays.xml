@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="note_style_array">
-        <item>Linear</item>
-        <item>Grid</item>
+        <item>По горизонтали</item>
+        <item>По вертикали</item>
     </string-array>
 
     <string-array name="note_style_values">

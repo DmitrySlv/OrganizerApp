@@ -6,6 +6,7 @@
         android:title="@string/general">
 
         <ListPreference
+            app:useSimpleSummaryProvider="true"
             android:title="@string/choose_note_style"
             android:key="note_style_key"
             android:defaultValue="1"
@@ -13,6 +14,7 @@
             app:entries="@array/note_style_array"
             app:entryValues="@array/note_style_values" />
         <ListPreference
+            app:useSimpleSummaryProvider="true"
             android:key="time_format_key"
             android:defaultValue="1"
             android:icon="@drawable/baseline_time_format"
@@ -30,6 +32,7 @@
         android:title="@string/choose_theme_settings">
 
         <ListPreference
+            app:useSimpleSummaryProvider="true"
             android:key="theme_key"
             android:defaultValue="1"
             android:title="@string/choose_theme"
@@ -42,6 +45,7 @@
         android:title="@string/note_text_settings">
 
         <ListPreference
+            app:useSimpleSummaryProvider="true"
             android:key="title_size_key"
             android:defaultValue="1"
             android:icon="@drawable/baseline_text"
@@ -50,6 +54,7 @@
             app:entryValues="@array/text_size_values" />
 
         <ListPreference
+            app:useSimpleSummaryProvider="true"
             android:key="content_size_key"
             android:defaultValue="1"
             android:icon="@drawable/baseline_text_content"
