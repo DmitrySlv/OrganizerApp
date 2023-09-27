@@ -13,12 +13,18 @@ import com.dscreate_app.organizerapp.utils.FragmentManager
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    private var currentMenuItemId = R.id.notes
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setBottomNavListener()
         FragmentManager.setFragment(NotesFragment.newInstance(), this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.bNavView.selectedItemId = currentMenuItemId
     }
 
     private fun setBottomNavListener() = with(binding) {
@@ -30,10 +36,12 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.notes -> {
+                    currentMenuItemId = R.id.notes
                     FragmentManager.setFragment(NotesFragment.newInstance(), this@MainActivity)
                 }
 
                 R.id.shopping_list -> {
+                    currentMenuItemId = R.id.shopping_list
                     FragmentManager.setFragment(ShoppingListNameFragment.newInstance(), this@MainActivity)
                 }
 

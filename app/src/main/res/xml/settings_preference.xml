@@ -9,7 +9,7 @@
             app:useSimpleSummaryProvider="true"
             android:title="@string/choose_note_style"
             android:key="note_style_key"
-            android:defaultValue="1"
+            android:defaultValue="@string/def_note_style"
             android:icon="@drawable/baseline_style"
             app:entries="@array/note_style_array"
             app:entryValues="@array/note_style_values" />

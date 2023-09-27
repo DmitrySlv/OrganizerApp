@@ -14,6 +14,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.activities.MainApp
 import com.dscreate_app.organizerapp.activities.NotesActivity
@@ -65,7 +67,7 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
         adapter = NotesAdapter(
             this@NotesFragment, this@NotesFragment, sharedPreferences
         )
-        rcView.layoutManager = LinearLayoutManager(requireContext())
+        rcView.layoutManager = getLayoutManager()
         rcView.adapter = adapter
     }
 
@@ -109,6 +111,18 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
         else -> @Suppress("DEPRECATION") getParcelableExtra(key) as? T
     }
 
+    private fun getLayoutManager(): RecyclerView.LayoutManager { //Возвращает расположение layout
+        return if (sharedPreferences.getString(
+                "note_style_key",
+                getString(R.string.def_note_style)
+            ) == getString(R.string.def_note_style)
+        ) {
+            LinearLayoutManager(requireContext())
+        } else {
+            StaggeredGridLayoutManager(DEF_SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
+        }
+    }
+
     override fun deleteItem(id: Int) {
         mainViewModel.deleteNote(id)
     }
@@ -123,5 +137,7 @@ class NotesFragment : BaseFragment(), NotesAdapter.DeleteListener, NotesAdapter.
     companion object {
         @JvmStatic
         fun newInstance() = NotesFragment()
+
+        private const val DEF_SPAN_COUNT = 2
     }
 }

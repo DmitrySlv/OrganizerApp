@@ -70,6 +70,7 @@
     <string name="def_content_text_size">16</string>
     <string name="def_title_text_size">18</string>
     <string name="def_time_format">hh:mm:ss - dd/MM/yyyy</string>
+    <string name="def_note_style">Linear</string>
     <!-- Settings Activity -->
     <string name="action_bar_title">Настройки приложения</string>
 </resources>
