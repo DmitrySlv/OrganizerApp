@@ -12,6 +12,12 @@ import com.dscreate_app.organizerapp.fragments.ShoppingListNameFragment
 import com.dscreate_app.organizerapp.settings_views.SettingsActivity
 import com.dscreate_app.organizerapp.utils.FragmentManager
 import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EMPTY
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private var currentMenuItemId = R.id.notes
     private var currentTheme = EMPTY
     private lateinit var sharedPref: SharedPreferences
+    private var interstitialAd: InterstitialAd? = null
+    private var adShowCounter = 0
+    private val adShowCounterMax = 3
 
     override fun onCreate(savedInstanceState: Bundle?) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
@@ -28,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setBottomNavListener()
         FragmentManager.setFragment(NotesFragment.newInstance(), this)
+        loadInterAd()
     }
 
     override fun onResume() {
@@ -38,17 +48,72 @@ class MainActivity : AppCompatActivity() {
         binding.bNavView.selectedItemId = currentMenuItemId
     }
 
+    private fun loadInterAd() {
+        val request = AdRequest.Builder().build()
+        InterstitialAd.load(
+            this,
+            getString(R.string.inter_ad_id),
+            request,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(ad: LoadAdError) {
+                    interstitialAd = null
+                }
+
+                override fun onAdLoaded(ad: InterstitialAd) {
+                    interstitialAd = ad
+                }
+            })
+    }
+
+    private fun showInterAd(adListener: AdListener) {
+        if (interstitialAd != null || adShowCounter > adShowCounterMax) {
+            interstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
+                override fun onAdDismissedFullScreenContent() {
+                    interstitialAd = null
+                    loadInterAd()
+                    adListener.onFinish()
+                }
+
+                override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                    interstitialAd = null
+                    loadInterAd()
+                    adListener.onFinish()
+                }
+
+                override fun onAdShowedFullScreenContent() {
+                    interstitialAd = null
+                    loadInterAd()
+                    adListener.onFinish()
+                }
+            }
+            adShowCounter = 0
+            interstitialAd?.show(this)
+        } else {
+            adShowCounter++
+            adListener.onFinish()
+        }
+    }
+
     private fun setBottomNavListener() = with(binding) {
         bNavView.selectedItemId = R.id.notes
         bNavView.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.settings -> {
+                    showInterAd(object : AdListener {
+                        override fun onFinish() {
+                            startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+                        }
+                    })
                    startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
                 }
 
                 R.id.notes -> {
-                    currentMenuItemId = R.id.notes
-                    FragmentManager.setFragment(NotesFragment.newInstance(), this@MainActivity)
+                    showInterAd(object : AdListener {
+                        override fun onFinish() {
+                            currentMenuItemId = R.id.notes
+                            FragmentManager.setFragment(NotesFragment.newInstance(), this@MainActivity)
+                        }
+                    })
                 }
 
                 R.id.shopping_list -> {
@@ -72,5 +137,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             R.style.Base_Theme_OrganizerAppYellow
         }
+    }
+
+    interface AdListener {
+        fun onFinish()
     }
 }

@@ -74,4 +74,6 @@
     <string name="def_theme">Blue</string>
     <!-- Settings Activity -->
     <string name="action_bar_title">Настройки приложения</string>
+    <!-- Ads_google -->
+    <string name="inter_ad_id">ca-app-pub-3940256099942544/1033173712</string>
 </resources>
