@@ -11,17 +11,20 @@ import com.dscreate_app.organizerapp.fragments.NotesFragment
 import com.dscreate_app.organizerapp.fragments.ShoppingListNameFragment
 import com.dscreate_app.organizerapp.settings_views.SettingsActivity
 import com.dscreate_app.organizerapp.utils.FragmentManager
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EMPTY
 
 class MainActivity : AppCompatActivity() {
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var currentMenuItemId = R.id.notes
+    private var currentTheme = EMPTY
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
+        currentTheme = sharedPref.getString("theme_key", getString(R.string.def_theme)).toString()
         setTheme(getSelectedTheme())
+        super.onCreate(savedInstanceState)
         setContentView(binding.root)
         setBottomNavListener()
         FragmentManager.setFragment(NotesFragment.newInstance(), this)
@@ -29,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        if (sharedPref.getString("theme_key", getString(R.string.def_theme)) != currentTheme) {
+            recreate()
+        }
         binding.bNavView.selectedItemId = currentMenuItemId
     }
 
