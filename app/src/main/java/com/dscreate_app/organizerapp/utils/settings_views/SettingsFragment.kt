@@ -1,4 +1,4 @@
-package com.dscreate_app.organizerapp.settings_views
+package com.dscreate_app.organizerapp.utils.settings_views
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat

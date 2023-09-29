@@ -1,4 +1,4 @@
-package com.dscreate_app.organizerapp.settings_views
+package com.dscreate_app.organizerapp.utils.settings_views
 
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity

@@ -9,7 +9,7 @@ import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.databinding.ActivityMainBinding
 import com.dscreate_app.organizerapp.fragments.NotesFragment
 import com.dscreate_app.organizerapp.fragments.ShoppingListNameFragment
-import com.dscreate_app.organizerapp.settings_views.SettingsActivity
+import com.dscreate_app.organizerapp.utils.settings_views.SettingsActivity
 import com.dscreate_app.organizerapp.utils.FragmentManager
 import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EMPTY
 import com.google.android.gms.ads.AdError

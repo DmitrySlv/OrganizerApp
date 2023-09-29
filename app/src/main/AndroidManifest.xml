@@ -15,7 +15,7 @@
         android:theme="@style/Base.Theme.OrganizerAppBlue"
         tools:targetApi="31">
         <activity
-            android:name=".settings_views.SettingsActivity"
+            android:name=".utils.settings_views.SettingsActivity"
             android:exported="false" />
         <activity
             android:name=".activities.ShoppingListActivity"
