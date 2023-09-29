@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         currentTheme = sharedPref.getString("theme_key", getString(R.string.def_theme)).toString()
         setTheme(getSelectedTheme())
+
         super.onCreate(savedInstanceState)
         pref = getSharedPreferences(OrganizerAppConsts.MAIN_PREF, MODE_PRIVATE)
         setContentView(binding.root)
@@ -72,7 +73,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showInterAd(adListener: AdListener) {
-        if (interstitialAd != null || adShowCounter > adShowCounterMax) {
+        if (interstitialAd != null && adShowCounter > adShowCounterMax &&
+            !pref.getBoolean(OrganizerAppConsts.REMOVE_ADS_KEY, false)) {
             interstitialAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
                 override fun onAdDismissedFullScreenContent() {
                     interstitialAd = null
