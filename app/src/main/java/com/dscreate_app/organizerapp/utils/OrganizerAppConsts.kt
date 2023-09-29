@@ -14,4 +14,6 @@ object OrganizerAppConsts {
     const val EDIT = 3
     const val CHECK_BOX = 4
     const val ADD = 5
+
+    const val REMOVE_AD_ITEM = "remove_ad_item_id"
 }
