@@ -11,7 +11,9 @@ import com.dscreate_app.organizerapp.fragments.NotesFragment
 import com.dscreate_app.organizerapp.fragments.ShoppingListNameFragment
 import com.dscreate_app.organizerapp.utils.settings_views.SettingsActivity
 import com.dscreate_app.organizerapp.utils.FragmentManager
+import com.dscreate_app.organizerapp.utils.OrganizerAppConsts
 import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EMPTY
+import com.dscreate_app.organizerapp.utils.billing.BillingManager
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -28,16 +30,20 @@ class MainActivity : AppCompatActivity() {
     private var interstitialAd: InterstitialAd? = null
     private var adShowCounter = 0
     private val adShowCounterMax = 3
+    private lateinit var pref: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this)
         currentTheme = sharedPref.getString("theme_key", getString(R.string.def_theme)).toString()
         setTheme(getSelectedTheme())
         super.onCreate(savedInstanceState)
+        pref = getSharedPreferences(OrganizerAppConsts.MAIN_PREF, MODE_PRIVATE)
         setContentView(binding.root)
         setBottomNavListener()
         FragmentManager.setFragment(NotesFragment.newInstance(), this)
-        loadInterAd()
+        if (!pref.getBoolean(OrganizerAppConsts.REMOVE_ADS_KEY, false)) {
+            loadInterAd()
+        }
     }
 
     override fun onResume() {

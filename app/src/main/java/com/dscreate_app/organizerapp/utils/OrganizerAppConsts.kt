@@ -16,4 +16,6 @@ object OrganizerAppConsts {
     const val ADD = 5
 
     const val REMOVE_AD_ITEM = "remove_ad_item_id"
+    const val REMOVE_ADS_KEY = "remove_ads_key"
+    const val MAIN_PREF = "main_pref"
 }

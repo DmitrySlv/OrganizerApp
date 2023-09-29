@@ -76,4 +76,8 @@
     <string name="action_bar_title">Настройки приложения</string>
     <!-- Ads_google -->
     <string name="inter_ad_id">ca-app-pub-3940256099942544/1033173712</string>
+    <!-- Billing Manager -->
+    <string name="purchase_done">Спасибо за покупку!</string>
+    <string name="purchase_error">Не удалось совершить покупку. Пожалуйста,
+    попробуйте еще раз позже!</string>
 </resources>

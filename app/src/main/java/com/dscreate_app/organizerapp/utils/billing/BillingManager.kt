@@ -1,5 +1,6 @@
 package com.dscreate_app.organizerapp.utils.billing
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import com.android.billingclient.api.AcknowledgePurchaseParams
 import com.android.billingclient.api.AcknowledgePurchaseResponseListener
@@ -10,7 +11,9 @@ import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetailsParams
+import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.utils.OrganizerAppConsts
+import com.dscreate_app.organizerapp.utils.showToast
 
 class BillingManager(private val activity: AppCompatActivity) {
 
@@ -45,7 +48,11 @@ class BillingManager(private val activity: AppCompatActivity) {
                     .setPurchaseToken(purchase.purchaseToken).build()
                 bClient?.acknowledgePurchase(acParams) {
                     if (it.responseCode == BillingClient.BillingResponseCode.OK) {
-
+                        savePref(true) //если успешно прошла покупка
+                        activity.showToast(activity.getString(R.string.purchase_done))
+                    } else {
+                        savePref(false) //если неуспешно прошла покупка
+                        activity.showToast(activity.getString(R.string.purchase_error))
                     }
                 }
             }
@@ -86,5 +93,14 @@ class BillingManager(private val activity: AppCompatActivity) {
                 }
             }
         }
+    }
+
+    private fun savePref(isPurchase: Boolean) {
+        val sharedPref = activity.getSharedPreferences(
+            OrganizerAppConsts.MAIN_PREF, Context.MODE_PRIVATE
+        )
+        val editor = sharedPref.edit()
+        editor.putBoolean(OrganizerAppConsts.REMOVE_ADS_KEY, isPurchase)
+        editor.apply()
     }
 }
