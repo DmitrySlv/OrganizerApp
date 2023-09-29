@@ -63,6 +63,10 @@ class BillingManager(private val activity: AppCompatActivity) {
         })
     }
 
+    fun closeConnection() {
+        bClient?.endConnection()
+    }
+
     private fun getItem() {
         val skuList = mutableListOf<String>()
         skuList.add(OrganizerAppConsts.REMOVE_AD_ITEM)

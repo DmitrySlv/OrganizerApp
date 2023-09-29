@@ -23,6 +23,7 @@
             app:entryValues="@array/time_format_values" />
         <Preference
             android:title="@string/remove_ads"
+            android:key="remove_ads_key"
             android:summary="@string/remove_ads_summary"
             android:icon="@drawable/baseline_remove_ads" />
     </PreferenceCategory>
