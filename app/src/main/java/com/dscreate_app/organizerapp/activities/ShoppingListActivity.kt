@@ -223,7 +223,7 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
         EditListItemDialog.showDialog(
             this, shoppingListItem, object : EditListItemDialog.Listener {
                 override fun onClick(item: ShoppingListItemEntity) {
-                    mainViewModel.updateLibraryItem(LibraryItemEntity(item.id, item.name))
+                    mainViewModel.updateLibraryItem(LibraryItemEntity(item.id, item.name, ""))
                     mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%") // вручную обновление списка по символу из edItem.
                 }
             })
