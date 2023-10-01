@@ -223,7 +223,7 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
         EditListItemDialog.showDialog(
             this, shoppingListItem, object : EditListItemDialog.Listener {
                 override fun onClick(item: ShoppingListItemEntity) {
-                    mainViewModel.updateLibraryItem(LibraryItemEntity(item.id, item.name, ""))
+                    mainViewModel.updateLibraryItem(LibraryItemEntity(item.id, item.name))
                     mainViewModel.getAllLibraryItems("%${edItem?.text.toString()}%") // вручную обновление списка по символу из edItem.
                 }
             })
@@ -251,9 +251,9 @@ class ShoppingListActivity : AppCompatActivity(), ShoppingListItemAdapter.OnClic
     }
 
     private fun getSelectedTheme(): Int {
-        return if (sharedPref?.getString("theme_key", "Blue") == "Blue") {
+        return if (sharedPref.getString("theme_key", "Blue") == "Blue") {
             R.style.Base_Theme_OrganizerAppBlue
-        } else if (sharedPref?.getString("theme_key", "Green") == "Green") {
+        } else if (sharedPref.getString("theme_key", "Green") == "Green") {
             R.style.Base_Theme_OrganizerAppGreen
         } else {
             R.style.Base_Theme_OrganizerAppYellow

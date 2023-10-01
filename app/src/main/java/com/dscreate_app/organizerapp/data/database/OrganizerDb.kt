@@ -3,18 +3,24 @@ package com.dscreate_app.organizerapp.data.database
 import android.app.Application
 import androidx.room.AutoMigration
 import androidx.room.Database
+import androidx.room.DeleteColumn
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.AutoMigrationSpec
 import com.dscreate_app.organizerapp.data.entities.LibraryItemEntity
 import com.dscreate_app.organizerapp.data.entities.NoteItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListItemEntity
 import com.dscreate_app.organizerapp.data.entities.ShoppingListNameEntity
 
 @Database(entities = [LibraryItemEntity::class, NoteItemEntity::class,
-    ShoppingListItemEntity::class, ShoppingListNameEntity::class], version = 2,
-    exportSchema = true, autoMigrations = [AutoMigration(from = 1, to = 2)]
+    ShoppingListItemEntity::class, ShoppingListNameEntity::class], version = 3,
+    exportSchema = true,
+    autoMigrations = [AutoMigration(from = 2, to = 3, spec = OrganizerDb.SpecMigration::class)]
 )
 abstract class OrganizerDb: RoomDatabase() {
+
+    @DeleteColumn (tableName = "library_item", columnName = "price")
+    class SpecMigration: AutoMigrationSpec
 
     companion object {
         @Volatile

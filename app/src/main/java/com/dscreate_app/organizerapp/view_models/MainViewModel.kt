@@ -42,7 +42,7 @@ class MainViewModel(database: OrganizerDb): ViewModel() {
     fun insertShoppingListItem(shoppingListItem: ShoppingListItemEntity) = viewModelScope.launch {
         dao.insertShoppingListItem(shoppingListItem)
         if (!isLibraryItemExists(shoppingListItem.name)) {
-            dao.insertLibraryItem(LibraryItemEntity(null, shoppingListItem.name, ""))
+            dao.insertLibraryItem(LibraryItemEntity(null, shoppingListItem.name))
         }
     }
 
