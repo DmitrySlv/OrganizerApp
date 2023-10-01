@@ -1,3 +1,83 @@
 <resources>
     <string name="app_name">OrganizerApp</string>
+    <string name="item">Item</string>
+    <string name="empty">Пусто</string>
+    <!-- content_descriptions -->
+    <string name="button_delete">Кнопка удалить заметку</string>
+    <string name="button_red">Красный цвет</string>
+    <string name="button_yellow">Желтый цвет</string>
+    <string name="button_blue">Голубой цвет</string>
+    <string name="button_black">Черный цвет</string>
+    <string name="button_orange">Оранжевый цвет</string>
+    <string name="button_green">Зеленый цвет</string>
+    <string name="button_delete_shopping_list">Кнопка удалить список покупок</string>
+    <string name="button_edit_shopping_list">Кнопка редактировать список покупок</string>
+    <!-- bottom_nav_menu -->
+    <string name="settings">Настройки</string>
+    <string name="notes">Заметки</string>
+    <string name="shopping_list">Список покупок</string>
+    <string name="new_item">Создать</string>
+    <!-- activity_note -->
+    <string name="title_hint">Заголовок</string>
+    <string name="desc_hint">Описание</string>
+    <!-- new_note_menu -->
+    <string name="save">Сохранить</string>
+    <string name="bold">Выделить жирным</string>
+    <!-- new_list_dialog -->
+    <string name="new_list">Новый список</string>
+    <string name="new_list_edit">Редактировать список</string>
+    <string name="new_list_hint">Введите описание списка</string>
+    <string name="button_create">Создать</string>
+    <string name="button_edit">Изменить</string>
+    <!-- delete_list_dialog -->
+    <string name="delete_item_dialog">Вы действительно хотите удалить этот элемент списка?</string>
+    <string name="delete_alert">Удаление элемента</string>
+    <string name="delete_item_btn">Удалить</string>
+    <string name="delete_item_cancel_btn">Отмена</string>
+    <!-- fragment_shop_list_names -->
+    <string name="button_create_list">Создать новый список</string>
+    <!-- Note Activity -->
+    <string name="new_note">Создать заметку</string>
+    <string name="new_note_edit">Редактировать</string>
+    <!-- shopping_list_name_item -->
+    <string name="item_count_def">0/0</string>
+    <string name="shopping_list_name_title">Все списки</string>
+    <!-- shopping_list_menu -->
+    <string name="delete_list">Удалить список</string>
+    <string name="clear_list">Очистить список</string>
+    <string name="share_list">Поделиться списком</string>
+    <!-- action_layout -->
+    <string name="new_item_hint">Новый элемент</string>
+    <!-- edit_shopping_list_item_dialog -->
+    <string name="update_list_item">Редактировать</string>
+    <string name="name_hint">Название</string>
+    <string name="item_info_hint">Описание</string>
+    <string name="btn_update_item">Изменить</string>
+    <!-- Shopping List Activity -->
+    <string name="share_with">Поделиться с:</string>
+    <!-- settings_preference -->
+    <string name="general">Общие настройки</string>
+    <string name="choose_note_style">Выбор стиля заметок</string>
+    <string name="choose_time_format">Выбор формата времени</string>
+    <string name="remove_ads">Убрать рекламу</string>
+    <string name="remove_ads_summary">Убрать всю рекламу из приложения</string>
+    <string name="choose_theme_settings">Настройки темы</string>
+    <string name="choose_theme">Выбор темы</string>
+    <string name="note_text_settings">Настройки текста заметок</string>
+    <string name="title_text_size">Размер заголовка</string>
+    <string name="content_text_size">Размер контента</string>
+
+    <string name="def_content_text_size">16</string>
+    <string name="def_title_text_size">18</string>
+    <string name="def_time_format">hh:mm:ss - dd/MM/yyyy</string>
+    <string name="def_note_style">Linear</string>
+    <string name="def_theme">Blue</string>
+    <!-- Settings Activity -->
+    <string name="action_bar_title">Настройки приложения</string>
+    <!-- Ads_google -->
+    <string name="inter_ad_id">ca-app-pub-3940256099942544/1033173712</string>
+    <!-- Billing Manager -->
+    <string name="purchase_done">Спасибо за покупку!</string>
+    <string name="purchase_error">Не удалось совершить покупку. Пожалуйста,
+    попробуйте еще раз позже!</string>
 </resources>

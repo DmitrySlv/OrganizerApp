@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageButton
+        android:id="@+id/ibDelete"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="5dp"
+        android:alpha="0.8"
+        android:backgroundTint="@color/picker_blue"
+        android:contentDescription="@string/button_delete_shopping_list"
+        android:elevation="10dp"
+        android:src="@drawable/baseline_delete_list"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+    <ImageButton
+        android:id="@+id/ibEdit"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="1dp"
+        android:alpha="0.8"
+        android:backgroundTint="@color/green_light"
+        android:contentDescription="@string/button_edit_shopping_list"
+        android:elevation="10dp"
+        android:src="@drawable/baseline_edit_list"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toStartOf="@+id/ibDelete"
+        app:layout_constraintTop_toTopOf="@+id/cardView" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="3dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/tvListName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/item"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/item"
+                android:textSize="12sp" />
+
+            <ProgressBar
+                android:id="@+id/pBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/counterCard"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="5dp"
+        android:alpha="0.8"
+        android:backgroundTint="@color/red"
+        app:layout_constraintBottom_toBottomOf="@+id/ibEdit"
+        app:layout_constraintEnd_toStartOf="@+id/ibEdit"
+        app:layout_constraintTop_toTopOf="@+id/ibEdit">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvCounter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:gravity="center"
+                android:text="@string/item_count_def"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        android:icon="@drawable/baseline_settings"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/notes"
+        android:title="@string/notes"
+        android:icon="@drawable/baseline_note"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/shopping_list"
+        android:title="@string/shopping_list"
+        android:icon="@drawable/baseline_list"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/new_item"
+        android:title="@string/new_item"
+        android:icon="@drawable/baseline_new"
+        app:showAsAction="ifRoom"
+        />
+
+</menu>
