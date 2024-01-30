@@ -9,11 +9,10 @@ import com.dscreate_app.organizerapp.R
 import com.dscreate_app.organizerapp.databinding.ActivityMainBinding
 import com.dscreate_app.organizerapp.fragments.NotesFragment
 import com.dscreate_app.organizerapp.fragments.ShoppingListNameFragment
-import com.dscreate_app.organizerapp.utils.settings_views.SettingsActivity
 import com.dscreate_app.organizerapp.utils.FragmentManager
 import com.dscreate_app.organizerapp.utils.OrganizerAppConsts
 import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.EMPTY
-import com.dscreate_app.organizerapp.utils.billing.BillingManager
+import com.dscreate_app.organizerapp.utils.settings_views.SettingsActivity
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -112,7 +111,6 @@ class MainActivity : AppCompatActivity() {
                             startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
                         }
                     })
-                   startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
                 }
 
                 R.id.notes -> {

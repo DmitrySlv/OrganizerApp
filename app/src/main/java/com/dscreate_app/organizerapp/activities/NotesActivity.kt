@@ -32,6 +32,7 @@ import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.NEW_NOTE_KEY
 import com.dscreate_app.organizerapp.utils.OrganizerAppConsts.UPDATE
 import com.dscreate_app.organizerapp.utils.TimeManager
 import com.dscreate_app.organizerapp.utils.TouchListenerColor
+import com.dscreate_app.organizerapp.utils.showToast
 
 class NotesActivity : AppCompatActivity() {
 
@@ -60,7 +61,11 @@ class NotesActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.save -> {
-                setMainResult()
+                if (binding.edTitle.text.isBlank()) {
+                    showToast(getString(R.string.empty_title_field))
+                } else {
+                    setMainResult()
+                }
             }
             android.R.id.home -> {
                 finish()
