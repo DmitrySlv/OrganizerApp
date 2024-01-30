@@ -39,6 +39,7 @@
     <!-- Note Activity -->
     <string name="new_note">Создать заметку</string>
     <string name="new_note_edit">Редактировать</string>
+    <string name="empty_title_field">Заголовок не может быть пустым!</string>
     <!-- shopping_list_name_item -->
     <string name="item_count_def">0/0</string>
     <string name="shopping_list_name_title">Все списки</string>
